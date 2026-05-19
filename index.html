@@ -20,18 +20,76 @@
     --border-radius-lg: 12px;
     --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+    /* Cores da marca - light mode */
+    --c-hub-bg: #E6F1FB;
+    --c-hub-border: #378ADD;
+    --c-hub-text: #0C447C;
+    --c-hub-text-soft: #185FA5;
+
+    --c-n8n-bg: #EEEDFE;
+    --c-n8n-border: #7F77DD;
+    --c-n8n-text: #3C3489;
+    --c-n8n-text-soft: #534AB7;
+
+    --c-trigger-bg: #E1F5EE;
+    --c-trigger-border: #1D9E75;
+    --c-trigger-text: #085041;
+    --c-trigger-text-soft: #0F6E56;
+
+    --c-support-bg: #FAEEDA;
+    --c-support-border: #BA7517;
+    --c-support-text: #633806;
+    --c-support-text-soft: #854F0B;
+
+    --c-risk-high: #A32D2D;
+    --c-risk-med: #854F0B;
+
+    /* Cores do SVG */
+    --svg-center-bg: #3C3489;
+    --svg-center-text: #ffffff;
+    --svg-center-sub: #CECBF6;
   }
 
   @media (prefers-color-scheme: dark) {
     :root {
-      --color-background-primary: #1f1f1e;
-      --color-background-secondary: #2a2a28;
-      --color-background-tertiary: #353532;
+      --color-background-primary: #2a2a28;
+      --color-background-secondary: #353532;
+      --color-background-tertiary: #1f1f1e;
       --color-text-primary: #e5e3dc;
-      --color-text-secondary: #b4b2a9;
-      --color-text-tertiary: #888780;
-      --color-border-tertiary: rgba(255, 255, 255, 0.12);
-      --color-border-secondary: rgba(255, 255, 255, 0.25);
+      --color-text-secondary: #c2c0b6;
+      --color-text-tertiary: #9c9a92;
+      --color-border-tertiary: rgba(255, 255, 255, 0.15);
+      --color-border-secondary: rgba(255, 255, 255, 0.28);
+
+      /* Cores da marca - dark mode (fundos escuros, textos claros) */
+      --c-hub-bg: rgba(133, 183, 235, 0.18);
+      --c-hub-border: #85B7EB;
+      --c-hub-text: #E6F1FB;
+      --c-hub-text-soft: #B5D4F4;
+
+      --c-n8n-bg: rgba(175, 169, 236, 0.18);
+      --c-n8n-border: #AFA9EC;
+      --c-n8n-text: #EEEDFE;
+      --c-n8n-text-soft: #CECBF6;
+
+      --c-trigger-bg: rgba(93, 202, 165, 0.18);
+      --c-trigger-border: #5DCAA5;
+      --c-trigger-text: #E1F5EE;
+      --c-trigger-text-soft: #9FE1CB;
+
+      --c-support-bg: rgba(239, 159, 39, 0.18);
+      --c-support-border: #EF9F27;
+      --c-support-text: #FAEEDA;
+      --c-support-text-soft: #FAC775;
+
+      --c-risk-high: #F09595;
+      --c-risk-med: #FAC775;
+
+      /* SVG dark mode */
+      --svg-center-bg: #7F77DD;
+      --svg-center-text: #ffffff;
+      --svg-center-sub: #EEEDFE;
     }
   }
 
@@ -47,26 +105,11 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  .page {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
+  .page { max-width: 1100px; margin: 0 auto; }
 
-  .page-header {
-    margin-bottom: 1.5rem;
-  }
-
-  .page-header h1 {
-    font-size: 22px;
-    font-weight: 500;
-    margin: 0 0 0.25rem;
-  }
-
-  .page-header p {
-    font-size: 13px;
-    color: var(--color-text-secondary);
-    margin: 0;
-  }
+  .page-header { margin-bottom: 1.5rem; }
+  .page-header h1 { font-size: 22px; font-weight: 500; margin: 0 0 0.25rem; }
+  .page-header p { font-size: 13px; color: var(--color-text-secondary); margin: 0; }
 
   .summary {
     background: var(--color-background-secondary);
@@ -76,22 +119,15 @@
     color: var(--color-text-secondary);
     margin-bottom: 1rem;
     line-height: 1.6;
+    border: 0.5px solid var(--color-border-tertiary);
   }
-
-  .summary strong {
-    color: var(--color-text-primary);
-    font-weight: 500;
-  }
+  .summary strong { color: var(--color-text-primary); font-weight: 500; }
 
   .legend {
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-    font-size: 12px;
-    color: var(--color-text-secondary);
+    display: flex; gap: 14px; flex-wrap: wrap;
+    font-size: 12px; color: var(--color-text-secondary);
     margin-bottom: 1rem;
   }
-
   .legend-item { display: flex; align-items: center; gap: 6px; }
   .legend-dot { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
 
@@ -103,15 +139,9 @@
     overflow: hidden;
     border: 0.5px solid var(--color-border-tertiary);
   }
-
-  .map-wrapper svg {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
+  .map-wrapper svg { display: block; width: 100%; height: auto; }
   .map-wrapper svg g[data-stage] { cursor: pointer; transition: opacity 0.15s; }
-  .map-wrapper svg g[data-stage]:hover { opacity: 0.8; }
+  .map-wrapper svg g[data-stage]:hover { opacity: 0.85; }
   .map-wrapper svg g[data-stage]:hover rect { stroke-width: 2.5; }
 
   .map-hint {
@@ -123,21 +153,14 @@
   }
 
   .section-divider {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    display: flex; align-items: center; gap: 10px;
     margin: 1.5rem 0 0.75rem;
-    font-size: 11px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
+    font-size: 11px; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.8px;
     color: var(--color-text-tertiary);
   }
-
   .section-divider::after {
-    content: "";
-    flex: 1;
-    height: 0.5px;
+    content: ""; flex: 1; height: 0.5px;
     background: var(--color-border-tertiary);
   }
 
@@ -152,35 +175,26 @@
 
   .stage-header {
     padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    user-select: none;
+    display: flex; align-items: center; gap: 10px;
+    cursor: pointer; user-select: none;
     background: var(--color-background-secondary);
     border-bottom: 0.5px solid var(--color-border-tertiary);
   }
-
   .stage-header:hover { background: var(--color-background-tertiary); }
 
   .stage-num {
-    width: 24px;
-    height: 24px;
+    width: 24px; height: 24px;
     border-radius: 50%;
     background: var(--color-background-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 500;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 500;
     color: var(--color-text-secondary);
     border: 0.5px solid var(--color-border-secondary);
     flex-shrink: 0;
   }
-
-  .stage-num.support { background: #FAEEDA; border-color: #BA7517; color: #633806; }
-  .stage-num.infra { background: #E1F5EE; border-color: #1D9E75; color: #085041; }
-  .stage-num.bus { background: #EEEDFE; border-color: #7F77DD; color: #3C3489; }
+  .stage-num.support { background: var(--c-support-bg); border-color: var(--c-support-border); color: var(--c-support-text); }
+  .stage-num.infra { background: var(--c-trigger-bg); border-color: var(--c-trigger-border); color: var(--c-trigger-text); }
+  .stage-num.bus { background: var(--c-n8n-bg); border-color: var(--c-n8n-border); color: var(--c-n8n-text); }
 
   .stage-title { font-size: 14px; font-weight: 500; flex: 1; }
   .stage-chev { color: var(--color-text-tertiary); font-size: 18px; transition: transform 0.2s; }
@@ -195,26 +209,15 @@
   .stage-body { padding: 14px 16px; display: none; }
   .stage.open .stage-body { display: block; }
 
-  .cols {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  @media (max-width: 700px) {
-    .cols { grid-template-columns: 1fr; }
-  }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 700px) { .cols { grid-template-columns: 1fr; } }
 
   .col-label {
-    font-size: 11px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    font-size: 11px; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.5px;
     color: var(--color-text-tertiary);
     margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    display: flex; align-items: center; gap: 6px;
   }
 
   .item {
@@ -225,60 +228,43 @@
     border: 0.5px solid;
   }
 
-  .item-hub { background: #E6F1FB; border-color: #378ADD; color: #0C447C; }
-  .item-n8n { background: #EEEDFE; border-color: #7F77DD; color: #3C3489; }
-  .item-trigger { background: #E1F5EE; border-color: #1D9E75; color: #085041; }
-  .item-support { background: #FAEEDA; border-color: #BA7517; color: #633806; }
-
-  @media (prefers-color-scheme: dark) {
-    .item-hub { background: rgba(55, 138, 221, 0.15); color: #B5D4F4; }
-    .item-n8n { background: rgba(127, 119, 221, 0.15); color: #CECBF6; }
-    .item-trigger { background: rgba(29, 158, 117, 0.15); color: #9FE1CB; }
-    .item-support { background: rgba(186, 117, 23, 0.15); color: #FAC775; }
-  }
+  .item-hub { background: var(--c-hub-bg); border-color: var(--c-hub-border); color: var(--c-hub-text); }
+  .item-n8n { background: var(--c-n8n-bg); border-color: var(--c-n8n-border); color: var(--c-n8n-text); }
+  .item-trigger { background: var(--c-trigger-bg); border-color: var(--c-trigger-border); color: var(--c-trigger-text); }
+  .item-support { background: var(--c-support-bg); border-color: var(--c-support-border); color: var(--c-support-text); }
 
   .item-name { font-weight: 500; margin-bottom: 2px; }
-  .item-desc { font-size: 12px; opacity: 0.85; line-height: 1.5; }
+  .item-desc { font-size: 12px; opacity: 0.88; line-height: 1.5; }
 
   .item code, .trigger-row code {
     font-family: var(--font-mono);
     font-size: 11px;
-    background: rgba(0, 0, 0, 0.06);
+    background: rgba(0, 0, 0, 0.08);
     padding: 1px 5px;
     border-radius: 3px;
   }
-
   @media (prefers-color-scheme: dark) {
-    .item code, .trigger-row code { background: rgba(255, 255, 255, 0.08); }
+    .item code, .trigger-row code { background: rgba(255, 255, 255, 0.12); }
   }
 
   .item-risk {
     margin-top: 6px;
     padding-top: 6px;
-    border-top: 0.5px solid rgba(0, 0, 0, 0.08);
+    border-top: 0.5px solid rgba(0, 0, 0, 0.1);
     font-size: 11px;
     line-height: 1.45;
-    display: flex;
-    gap: 6px;
+    display: flex; gap: 6px;
   }
-
   @media (prefers-color-scheme: dark) {
-    .item-risk { border-top-color: rgba(255, 255, 255, 0.1); }
+    .item-risk { border-top-color: rgba(255, 255, 255, 0.12); }
   }
 
   .item-risk i { flex-shrink: 0; margin-top: 1px; }
-  .risk-high { color: #A32D2D; }
-  .risk-med { color: #854F0B; }
-
-  @media (prefers-color-scheme: dark) {
-    .risk-high { color: #F09595; }
-    .risk-med { color: #FAC775; }
-  }
+  .risk-high { color: var(--c-risk-high); }
+  .risk-med { color: var(--c-risk-med); }
 
   .trigger-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
+    display: flex; align-items: flex-start; gap: 8px;
     font-size: 12px;
     color: var(--color-text-secondary);
     margin-bottom: 8px;
@@ -286,14 +272,12 @@
     background: var(--color-background-secondary);
     border-radius: var(--border-radius-md);
   }
-
   .trigger-row i { margin-top: 2px; flex-shrink: 0; }
 
   .controls { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; }
 
   .ctrl-btn {
-    font-size: 12px;
-    padding: 6px 12px;
+    font-size: 12px; padding: 6px 12px;
     border-radius: var(--border-radius-md);
     background: var(--color-background-primary);
     border: 0.5px solid var(--color-border-secondary);
@@ -302,7 +286,6 @@
     font-family: inherit;
     transition: background 0.15s;
   }
-
   .ctrl-btn:hover { background: var(--color-background-secondary); }
 
   .cat-grid {
@@ -313,19 +296,17 @@
   }
 
   .cat-pill {
-    background: rgba(255, 255, 255, 0.5);
-    border: 0.5px solid rgba(186, 117, 23, 0.3);
+    background: rgba(255, 255, 255, 0.4);
+    border: 0.5px solid rgba(186, 117, 23, 0.35);
     padding: 6px 8px;
     border-radius: var(--border-radius-md);
     font-size: 11px;
     line-height: 1.4;
   }
-
-  .cat-pill strong { display: block; font-weight: 500; font-size: 11px; margin-bottom: 2px; }
-
   @media (prefers-color-scheme: dark) {
-    .cat-pill { background: rgba(255, 255, 255, 0.05); }
+    .cat-pill { background: rgba(255, 255, 255, 0.06); border-color: rgba(239, 159, 39, 0.4); }
   }
+  .cat-pill strong { display: block; font-weight: 500; font-size: 11px; margin-bottom: 2px; }
 
   .footer {
     margin-top: 2.5rem;
@@ -335,6 +316,31 @@
     color: var(--color-text-tertiary);
     text-align: center;
   }
+
+  /* SVG: classes tematizadas para o dark mode */
+  .svg-branch-hub { stroke: var(--c-hub-border); }
+  .svg-branch-n8n { stroke: var(--c-n8n-border); }
+  .svg-branch-support { stroke: var(--c-support-border); }
+  .svg-branch-trigger { stroke: var(--c-trigger-border); }
+
+  .svg-box-hub { fill: var(--c-hub-bg); stroke: var(--c-hub-border); }
+  .svg-box-n8n { fill: var(--c-n8n-bg); stroke: var(--c-n8n-border); }
+  .svg-box-trigger { fill: var(--c-trigger-bg); stroke: var(--c-trigger-border); }
+  .svg-box-support { fill: var(--c-support-bg); stroke: var(--c-support-border); }
+
+  .svg-text-hub { fill: var(--c-hub-text); }
+  .svg-text-hub-soft { fill: var(--c-hub-text-soft); }
+  .svg-text-n8n { fill: var(--c-n8n-text); }
+  .svg-text-n8n-soft { fill: var(--c-n8n-text-soft); }
+  .svg-text-trigger { fill: var(--c-trigger-text); }
+  .svg-text-support { fill: var(--c-support-text); }
+  .svg-text-support-soft { fill: var(--c-support-text-soft); }
+  .svg-text-risk-high { fill: var(--c-risk-high); }
+  .svg-text-risk-med { fill: var(--c-risk-med); }
+
+  .svg-center { fill: var(--svg-center-bg); }
+  .svg-center-title { fill: var(--svg-center-text); }
+  .svg-center-sub { fill: var(--svg-center-sub); }
 </style>
 </head>
 <body>
@@ -350,172 +356,172 @@
 </div>
 
 <div class="legend">
-  <div class="legend-item"><span class="legend-dot" style="background:#E6F1FB;border:0.5px solid #378ADD"></span>HubSpot</div>
-  <div class="legend-item"><span class="legend-dot" style="background:#EEEDFE;border:0.5px solid #7F77DD"></span>n8n</div>
-  <div class="legend-item"><span class="legend-dot" style="background:#FAEEDA;border:0.5px solid #BA7517"></span>Suporte</div>
-  <div class="legend-item"><span class="legend-dot" style="background:#E1F5EE;border:0.5px solid #1D9E75"></span>Infra</div>
-  <div class="legend-item"><i class="ti ti-alert-triangle" style="color:#A32D2D"></i> Risco alto</div>
-  <div class="legend-item"><i class="ti ti-alert-circle" style="color:#854F0B"></i> Atenção</div>
+  <div class="legend-item"><span class="legend-dot" style="background:var(--c-hub-bg);border:0.5px solid var(--c-hub-border)"></span>HubSpot</div>
+  <div class="legend-item"><span class="legend-dot" style="background:var(--c-n8n-bg);border:0.5px solid var(--c-n8n-border)"></span>n8n</div>
+  <div class="legend-item"><span class="legend-dot" style="background:var(--c-support-bg);border:0.5px solid var(--c-support-border)"></span>Suporte</div>
+  <div class="legend-item"><span class="legend-dot" style="background:var(--c-trigger-bg);border:0.5px solid var(--c-trigger-border)"></span>Infra</div>
+  <div class="legend-item"><i class="ti ti-alert-triangle" style="color:var(--c-risk-high)"></i> Risco alto</div>
+  <div class="legend-item"><i class="ti ti-alert-circle" style="color:var(--c-risk-med)"></i> Atenção</div>
 </div>
 
 <div class="map-wrapper">
 <svg viewBox="0 0 1400 1100" xmlns="http://www.w3.org/2000/svg" role="img" font-family="-apple-system, BlinkMacSystemFont, sans-serif">
 <title>Mapa mental do ticket de Setup</title>
-<desc>Diagrama radial com 8 ramos conectando o ticket de Setup às etapas da jornada, workflows do HubSpot, workflows do n8n, gatilhos por propriedade, workflows de Suporte e dependências de infra.</desc>
+<desc>Diagrama radial com 8 ramos conectando o ticket de Setup às etapas da jornada e aos workflows associados.</desc>
 
 <defs>
 <style>
 .branch-line { fill:none; stroke-width:2; stroke-linecap:round; }
-.leaf-line { fill:none; stroke-width:1; stroke-linecap:round; opacity:0.5; }
+.leaf-line { fill:none; stroke-width:1; stroke-linecap:round; opacity:0.6; }
 </style>
 </defs>
 
-<path class="branch-line" stroke="#378ADD" d="M 700 530 Q 500 480 320 380"/>
-<path class="branch-line" stroke="#378ADD" d="M 700 530 Q 700 400 700 200"/>
-<path class="branch-line" stroke="#378ADD" d="M 700 530 Q 900 480 1080 380"/>
-<path class="branch-line" stroke="#378ADD" d="M 700 580 Q 950 580 1180 580"/>
-<path class="branch-line" stroke="#378ADD" d="M 700 620 Q 900 700 1080 780"/>
-<path class="branch-line" stroke="#BA7517" d="M 700 620 Q 700 750 700 900"/>
-<path class="branch-line" stroke="#1D9E75" d="M 700 620 Q 500 700 320 780"/>
-<path class="branch-line" stroke="#7F77DD" d="M 700 580 Q 450 580 220 580"/>
+<path class="branch-line svg-branch-hub" d="M 700 530 Q 500 480 320 380"/>
+<path class="branch-line svg-branch-hub" d="M 700 530 Q 700 400 700 200"/>
+<path class="branch-line svg-branch-hub" d="M 700 530 Q 900 480 1080 380"/>
+<path class="branch-line svg-branch-hub" d="M 700 580 Q 950 580 1180 580"/>
+<path class="branch-line svg-branch-hub" d="M 700 620 Q 900 700 1080 780"/>
+<path class="branch-line svg-branch-support" d="M 700 620 Q 700 750 700 900"/>
+<path class="branch-line svg-branch-trigger" d="M 700 620 Q 500 700 320 780"/>
+<path class="branch-line svg-branch-n8n" d="M 700 580 Q 450 580 220 580"/>
 
-<ellipse cx="700" cy="575" rx="130" ry="58" fill="#3C3489"/>
-<text fill="#fff" font-size="18px" font-weight="500" x="700" y="568" text-anchor="middle">Ticket de Setup</text>
-<text fill="#CECBF6" font-size="12px" x="700" y="588" text-anchor="middle">Takeat · HubSpot + n8n</text>
-<text fill="#CECBF6" font-size="12px" x="700" y="604" text-anchor="middle">7 workflows n8n · 9+ workflows HubSpot</text>
+<ellipse class="svg-center" cx="700" cy="575" rx="130" ry="58"/>
+<text class="svg-center-title" font-size="18px" font-weight="500" x="700" y="568" text-anchor="middle">Ticket de Setup</text>
+<text class="svg-center-sub" font-size="12px" x="700" y="588" text-anchor="middle">Takeat · HubSpot + n8n</text>
+<text class="svg-center-sub" font-size="12px" x="700" y="604" text-anchor="middle">7 workflows n8n · 9+ workflows HubSpot</text>
 
 <g data-stage="stage-0">
-<rect x="200" y="340" width="240" height="80" rx="10" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
-<text fill="#0C447C" font-size="14px" font-weight="500" x="320" y="365" text-anchor="middle">0 · Deal criado</text>
-<text fill="#0C447C" font-size="11" x="320" y="385" text-anchor="middle">Ticket [Setup] gerado</text>
-<text fill="#0C447C" font-size="10" x="320" y="402" text-anchor="middle" opacity="0.7">HubSpot · workflows de deal</text>
-<line class="leaf-line" stroke="#378ADD" x1="320" y1="420" x2="180" y2="450"/>
-<line class="leaf-line" stroke="#378ADD" x1="320" y1="420" x2="180" y2="475"/>
-<text fill="#0C447C" font-size="11" x="175" y="453" text-anchor="end">[Novo Onboarding] Cliente Recebido</text>
-<text fill="#0C447C" font-size="11" x="175" y="478" text-anchor="end">Definir Perfil Cliente de Tickets</text>
+<rect class="svg-box-hub" x="200" y="340" width="240" height="80" rx="10" stroke-width="1"/>
+<text class="svg-text-hub" font-size="14px" font-weight="500" x="320" y="365" text-anchor="middle">0 · Deal criado</text>
+<text class="svg-text-hub" font-size="11" x="320" y="385" text-anchor="middle">Ticket [Setup] gerado</text>
+<text class="svg-text-hub-soft" font-size="10" x="320" y="402" text-anchor="middle">HubSpot · workflows de deal</text>
+<line class="leaf-line svg-branch-hub" x1="320" y1="420" x2="180" y2="450"/>
+<line class="leaf-line svg-branch-hub" x1="320" y1="420" x2="180" y2="475"/>
+<text class="svg-text-hub-soft" font-size="11" x="175" y="453" text-anchor="end">[Novo Onboarding] Cliente Recebido</text>
+<text class="svg-text-hub-soft" font-size="11" x="175" y="478" text-anchor="end">Definir Perfil Cliente de Tickets</text>
 </g>
 
 <g data-stage="stage-1">
-<rect x="540" y="120" width="320" height="80" rx="10" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
-<text fill="#0C447C" font-size="14px" font-weight="500" x="700" y="145" text-anchor="middle">1 · Cliente Recebido (NOVO)</text>
-<text fill="#0C447C" font-size="11" x="700" y="165" text-anchor="middle">Setup tarefas + acessos + squad leader</text>
-<text fill="#0C447C" font-size="10" x="700" y="182" text-anchor="middle" opacity="0.7">5 workflows HubSpot · 2 workflows n8n</text>
-<line class="leaf-line" stroke="#378ADD" x1="540" y1="180" x2="430" y2="50"/>
-<line class="leaf-line" stroke="#378ADD" x1="540" y1="180" x2="430" y2="80"/>
-<line class="leaf-line" stroke="#378ADD" x1="540" y1="180" x2="430" y2="110"/>
-<line class="leaf-line" stroke="#378ADD" x1="540" y1="180" x2="430" y2="140"/>
-<text fill="#0C447C" font-size="11" x="425" y="53" text-anchor="end">[Novo setup] Tarefa Squadleader</text>
-<text fill="#0C447C" font-size="11" x="425" y="83" text-anchor="end">[Novo setup] Disparo SquadLeader</text>
-<text fill="#0C447C" font-size="11" x="425" y="113" text-anchor="end">[RPA-Setup] Disparar Acessos (+20min)</text>
-<text fill="#0C447C" font-size="11" x="425" y="143" text-anchor="end">[Suporte] Envio ao proprietário</text>
-<line class="leaf-line" stroke="#7F77DD" x1="860" y1="180" x2="975" y2="50"/>
-<line class="leaf-line" stroke="#7F77DD" x1="860" y1="180" x2="975" y2="100"/>
-<rect x="980" y="35" width="220" height="48" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
-<text fill="#3C3489" font-size="11" x="990" y="55">Setup Dispairs</text>
-<text fill="#3C3489" font-size="10" opacity="0.7" x="990" y="70">7 ramos · roteador principal</text>
-<text fill="#A32D2D" font-size="9" x="990" y="80">⚠ sem Error Trigger · 17 nodes órfãos</text>
-<rect x="980" y="88" width="220" height="48" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
-<text fill="#3C3489" font-size="11" x="990" y="108">Enviar acessos grupo Whatsapp</text>
-<text fill="#3C3489" font-size="10" opacity="0.7" x="990" y="123">Email + senha no grupo + descrição</text>
-<text fill="#A32D2D" font-size="9" x="990" y="133">⚠ senha em texto claro · Participants[0]</text>
+<rect class="svg-box-hub" x="540" y="120" width="320" height="80" rx="10" stroke-width="1"/>
+<text class="svg-text-hub" font-size="14px" font-weight="500" x="700" y="145" text-anchor="middle">1 · Cliente Recebido (NOVO)</text>
+<text class="svg-text-hub" font-size="11" x="700" y="165" text-anchor="middle">Setup tarefas + acessos + squad leader</text>
+<text class="svg-text-hub-soft" font-size="10" x="700" y="182" text-anchor="middle">5 workflows HubSpot · 2 workflows n8n</text>
+<line class="leaf-line svg-branch-hub" x1="540" y1="180" x2="430" y2="50"/>
+<line class="leaf-line svg-branch-hub" x1="540" y1="180" x2="430" y2="80"/>
+<line class="leaf-line svg-branch-hub" x1="540" y1="180" x2="430" y2="110"/>
+<line class="leaf-line svg-branch-hub" x1="540" y1="180" x2="430" y2="140"/>
+<text class="svg-text-hub-soft" font-size="11" x="425" y="53" text-anchor="end">[Novo setup] Tarefa Squadleader</text>
+<text class="svg-text-hub-soft" font-size="11" x="425" y="83" text-anchor="end">[Novo setup] Disparo SquadLeader</text>
+<text class="svg-text-hub-soft" font-size="11" x="425" y="113" text-anchor="end">[RPA-Setup] Disparar Acessos (+20min)</text>
+<text class="svg-text-hub-soft" font-size="11" x="425" y="143" text-anchor="end">[Suporte] Envio ao proprietário</text>
+<line class="leaf-line svg-branch-n8n" x1="860" y1="180" x2="975" y2="50"/>
+<line class="leaf-line svg-branch-n8n" x1="860" y1="180" x2="975" y2="100"/>
+<rect class="svg-box-n8n" x="980" y="35" width="220" height="48" rx="8" stroke-width="0.5"/>
+<text class="svg-text-n8n" font-size="11" font-weight="500" x="990" y="55">Setup Dispairs</text>
+<text class="svg-text-n8n-soft" font-size="10" x="990" y="70">7 ramos · roteador principal</text>
+<text class="svg-text-risk-high" font-size="9" x="990" y="80">⚠ sem Error Trigger · 17 nodes órfãos</text>
+<rect class="svg-box-n8n" x="980" y="88" width="220" height="48" rx="8" stroke-width="0.5"/>
+<text class="svg-text-n8n" font-size="11" font-weight="500" x="990" y="108">Enviar acessos grupo Whatsapp</text>
+<text class="svg-text-n8n-soft" font-size="10" x="990" y="123">Email + senha no grupo + descrição</text>
+<text class="svg-text-risk-high" font-size="9" x="990" y="133">⚠ senha em texto claro · Participants[0]</text>
 </g>
 
 <g data-stage="stage-cardapio">
-<rect x="960" y="340" width="240" height="80" rx="10" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
-<text fill="#0C447C" font-size="14px" font-weight="500" x="1080" y="365" text-anchor="middle">2-5 · Cardápio</text>
-<text fill="#0C447C" font-size="11" x="1080" y="385" text-anchor="middle">Username → Montagem → Validação</text>
-<text fill="#0C447C" font-size="10" x="1080" y="402" text-anchor="middle" opacity="0.7">3 workflows n8n · alta densidade técnica</text>
-<line class="leaf-line" stroke="#7F77DD" x1="1200" y1="380" x2="1240" y2="270"/>
-<line class="leaf-line" stroke="#7F77DD" x1="1200" y1="380" x2="1240" y2="330"/>
-<line class="leaf-line" stroke="#7F77DD" x1="1200" y1="380" x2="1240" y2="390"/>
-<line class="leaf-line" stroke="#7F77DD" x1="1200" y1="380" x2="1240" y2="450"/>
-<rect x="1230" y="245" width="170" height="48" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
-<text fill="#3C3489" font-size="11" x="1240" y="265">Send SquadLead New Menu</text>
-<text fill="#3C3489" font-size="10" opacity="0.7" x="1240" y="280">Notifica João Lucas + Brittes</text>
-<text fill="#854F0B" font-size="9" x="1240" y="289">⚠ propriedades não solicitadas</text>
-<rect x="1230" y="305" width="170" height="48" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
-<text fill="#3C3489" font-size="11" x="1240" y="325">Setup ↔ Docupipe</text>
-<text fill="#3C3489" font-size="10" opacity="0.7" x="1240" y="340">OCR + standardize Excel</text>
-<text fill="#A32D2D" font-size="9" x="1240" y="349">⚠ 2 API keys hardcoded</text>
-<rect x="1230" y="365" width="170" height="48" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
-<text fill="#3C3489" font-size="11" x="1240" y="385">Menu IA Mountage</text>
-<text fill="#3C3489" font-size="10" opacity="0.7" x="1240" y="400">OpenAI + Sheets + Backend</text>
-<text fill="#A32D2D" font-size="9" x="1240" y="409">⚠ MVP · senha em claro</text>
-<rect x="1230" y="425" width="170" height="48" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
-<text fill="#3C3489" font-size="11" x="1240" y="445">Enviar mensagem cardápio pronto</text>
-<text fill="#3C3489" font-size="10" opacity="0.7" x="1240" y="460">Grupo ou inbox · link de validação</text>
-<text fill="#854F0B" font-size="9" x="1240" y="469">⚠ aviso no grupo em ambos os ramos</text>
+<rect class="svg-box-hub" x="960" y="340" width="240" height="80" rx="10" stroke-width="1"/>
+<text class="svg-text-hub" font-size="14px" font-weight="500" x="1080" y="365" text-anchor="middle">2-5 · Cardápio</text>
+<text class="svg-text-hub" font-size="11" x="1080" y="385" text-anchor="middle">Username → Montagem → Validação</text>
+<text class="svg-text-hub-soft" font-size="10" x="1080" y="402" text-anchor="middle">3 workflows n8n · alta densidade técnica</text>
+<line class="leaf-line svg-branch-n8n" x1="1200" y1="380" x2="1240" y2="270"/>
+<line class="leaf-line svg-branch-n8n" x1="1200" y1="380" x2="1240" y2="330"/>
+<line class="leaf-line svg-branch-n8n" x1="1200" y1="380" x2="1240" y2="390"/>
+<line class="leaf-line svg-branch-n8n" x1="1200" y1="380" x2="1240" y2="450"/>
+<rect class="svg-box-n8n" x="1230" y="245" width="170" height="48" rx="8" stroke-width="0.5"/>
+<text class="svg-text-n8n" font-size="11" font-weight="500" x="1240" y="265">Send SquadLead New Menu</text>
+<text class="svg-text-n8n-soft" font-size="10" x="1240" y="280">Notifica João Lucas + Brittes</text>
+<text class="svg-text-risk-med" font-size="9" x="1240" y="289">⚠ propriedades não solicitadas</text>
+<rect class="svg-box-n8n" x="1230" y="305" width="170" height="48" rx="8" stroke-width="0.5"/>
+<text class="svg-text-n8n" font-size="11" font-weight="500" x="1240" y="325">Setup ↔ Docupipe</text>
+<text class="svg-text-n8n-soft" font-size="10" x="1240" y="340">OCR + standardize Excel</text>
+<text class="svg-text-risk-high" font-size="9" x="1240" y="349">⚠ 2 API keys hardcoded</text>
+<rect class="svg-box-n8n" x="1230" y="365" width="170" height="48" rx="8" stroke-width="0.5"/>
+<text class="svg-text-n8n" font-size="11" font-weight="500" x="1240" y="385">Menu IA Mountage</text>
+<text class="svg-text-n8n-soft" font-size="10" x="1240" y="400">OpenAI + Sheets + Backend</text>
+<text class="svg-text-risk-high" font-size="9" x="1240" y="409">⚠ MVP · senha em claro</text>
+<rect class="svg-box-n8n" x="1230" y="425" width="170" height="48" rx="8" stroke-width="0.5"/>
+<text class="svg-text-n8n" font-size="11" font-weight="500" x="1240" y="445">Enviar mensagem cardápio pronto</text>
+<text class="svg-text-n8n-soft" font-size="10" x="1240" y="460">Grupo ou inbox · link de validação</text>
+<text class="svg-text-risk-med" font-size="9" x="1240" y="469">⚠ aviso no grupo em ambos os ramos</text>
 </g>
 
 <g data-stage="stage-6">
-<rect x="1060" y="540" width="240" height="80" rx="10" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
-<text fill="#0C447C" font-size="14px" font-weight="500" x="1180" y="565" text-anchor="middle">6 · Ativação</text>
-<text fill="#0C447C" font-size="11" x="1180" y="585" text-anchor="middle">Links de treinamento (poll 2min)</text>
-<text fill="#0C447C" font-size="10" x="1180" y="602" text-anchor="middle" opacity="0.7">1 workflow n8n · agendado</text>
-<line class="leaf-line" stroke="#7F77DD" x1="1180" y1="620" x2="1280" y2="640"/>
-<rect x="1230" y="640" width="170" height="48" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
-<text fill="#3C3489" font-size="11" x="1240" y="660">Send Link Setup Ativacao</text>
-<text fill="#3C3489" font-size="10" opacity="0.7" x="1240" y="675">Google Calendar + OpenAI humanize</text>
-<text fill="#854F0B" font-size="9" x="1240" y="684">⚠ token hardcoded · limit=1</text>
+<rect class="svg-box-hub" x="1060" y="540" width="240" height="80" rx="10" stroke-width="1"/>
+<text class="svg-text-hub" font-size="14px" font-weight="500" x="1180" y="565" text-anchor="middle">6 · Ativação</text>
+<text class="svg-text-hub" font-size="11" x="1180" y="585" text-anchor="middle">Links de treinamento (poll 2min)</text>
+<text class="svg-text-hub-soft" font-size="10" x="1180" y="602" text-anchor="middle">1 workflow n8n · agendado</text>
+<line class="leaf-line svg-branch-n8n" x1="1180" y1="620" x2="1280" y2="640"/>
+<rect class="svg-box-n8n" x="1230" y="640" width="170" height="48" rx="8" stroke-width="0.5"/>
+<text class="svg-text-n8n" font-size="11" font-weight="500" x="1240" y="660">Send Link Setup Ativacao</text>
+<text class="svg-text-n8n-soft" font-size="10" x="1240" y="675">Google Calendar + OpenAI humanize</text>
+<text class="svg-text-risk-med" font-size="9" x="1240" y="684">⚠ token hardcoded · limit=1</text>
 </g>
 
 <g data-stage="stage-7">
-<rect x="960" y="740" width="240" height="80" rx="10" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
-<text fill="#0C447C" font-size="14px" font-weight="500" x="1080" y="765" text-anchor="middle">7 · Conclusão</text>
-<text fill="#0C447C" font-size="11" x="1080" y="785" text-anchor="middle">Roteamento por equipe do owner</text>
-<text fill="#0C447C" font-size="10" x="1080" y="802" text-anchor="middle" opacity="0.7">Setup Dispairs (ramo 6) · engagement</text>
-<line class="leaf-line" stroke="#378ADD" x1="1080" y1="820" x2="1080" y2="850"/>
-<text fill="#A32D2D" font-size="10" x="1080" y="870" text-anchor="middle">⚠ Onboarding Group = Mkt Group</text>
-<text fill="#A32D2D" font-size="10" x="1080" y="885" text-anchor="middle">⚠ Switch1 sem default</text>
+<rect class="svg-box-hub" x="960" y="740" width="240" height="80" rx="10" stroke-width="1"/>
+<text class="svg-text-hub" font-size="14px" font-weight="500" x="1080" y="765" text-anchor="middle">7 · Conclusão</text>
+<text class="svg-text-hub" font-size="11" x="1080" y="785" text-anchor="middle">Roteamento por equipe do owner</text>
+<text class="svg-text-hub-soft" font-size="10" x="1080" y="802" text-anchor="middle">Setup Dispairs (ramo 6) · engagement</text>
+<line class="leaf-line svg-branch-hub" x1="1080" y1="820" x2="1080" y2="850"/>
+<text class="svg-text-risk-high" font-size="10" x="1080" y="870" text-anchor="middle">⚠ Onboarding Group = Mkt Group</text>
+<text class="svg-text-risk-high" font-size="10" x="1080" y="885" text-anchor="middle">⚠ Switch1 sem default</text>
 </g>
 
 <g data-stage="stage-suporte">
-<rect x="540" y="900" width="320" height="80" rx="10" fill="#FAEEDA" stroke="#BA7517" stroke-width="1"/>
-<text fill="#633806" font-size="14px" font-weight="500" x="700" y="925" text-anchor="middle">Suporte (paralelo)</text>
-<text fill="#633806" font-size="11" x="700" y="945" text-anchor="middle">[Suporte] Definição de Categoria SO</text>
-<text fill="#633806" font-size="10" x="700" y="962" text-anchor="middle" opacity="0.7">100% HubSpot · 2 gatilhos · 9 categorias</text>
-<line class="leaf-line" stroke="#BA7517" x1="540" y1="960" x2="450" y2="1020"/>
-<line class="leaf-line" stroke="#BA7517" x1="860" y1="960" x2="950" y2="1020"/>
-<text fill="#633806" font-size="10" x="445" y="1015" text-anchor="end">Cadastros · Comandas · Caixa</text>
-<text fill="#633806" font-size="10" x="445" y="1030" text-anchor="end">Cardápio · Estoque · Delivery</text>
-<text fill="#633806" font-size="10" x="955" y="1015">Impressão · Acompanhamento</text>
-<text fill="#633806" font-size="10" x="955" y="1030">Sugestão · sub-filtro contato</text>
+<rect class="svg-box-support" x="540" y="900" width="320" height="80" rx="10" stroke-width="1"/>
+<text class="svg-text-support" font-size="14px" font-weight="500" x="700" y="925" text-anchor="middle">Suporte (paralelo)</text>
+<text class="svg-text-support" font-size="11" x="700" y="945" text-anchor="middle">[Suporte] Definição de Categoria SO</text>
+<text class="svg-text-support-soft" font-size="10" x="700" y="962" text-anchor="middle">100% HubSpot · 2 gatilhos · 9 categorias</text>
+<line class="leaf-line svg-branch-support" x1="540" y1="960" x2="450" y2="1020"/>
+<line class="leaf-line svg-branch-support" x1="860" y1="960" x2="950" y2="1020"/>
+<text class="svg-text-support-soft" font-size="10" x="445" y="1015" text-anchor="end">Cadastros · Comandas · Caixa</text>
+<text class="svg-text-support-soft" font-size="10" x="445" y="1030" text-anchor="end">Cardápio · Estoque · Delivery</text>
+<text class="svg-text-support-soft" font-size="10" x="955" y="1015">Impressão · Acompanhamento</text>
+<text class="svg-text-support-soft" font-size="10" x="955" y="1030">Sugestão · sub-filtro contato</text>
 </g>
 
 <g data-stage="stage-bus">
-<rect x="40" y="540" width="200" height="80" rx="10" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1"/>
-<text fill="#3C3489" font-size="14px" font-weight="500" x="140" y="565" text-anchor="middle">Barramento</text>
-<text fill="#3C3489" font-size="11" x="140" y="585" text-anchor="middle">Propriedades-chave</text>
-<text fill="#3C3489" font-size="10" x="140" y="602" text-anchor="middle" opacity="0.7">Disparam workflows n8n</text>
-<line class="leaf-line" stroke="#7F77DD" x1="140" y1="540" x2="140" y2="470"/>
-<line class="leaf-line" stroke="#7F77DD" x1="140" y1="540" x2="140" y2="500"/>
-<line class="leaf-line" stroke="#7F77DD" x1="140" y1="620" x2="140" y2="660"/>
-<line class="leaf-line" stroke="#7F77DD" x1="140" y1="620" x2="140" y2="690"/>
-<line class="leaf-line" stroke="#7F77DD" x1="140" y1="620" x2="140" y2="720"/>
-<text fill="#3C3489" font-size="10" x="140" y="465" text-anchor="middle" font-weight="500">gatilho_disparos_setup</text>
-<text fill="#3C3489" font-size="9" opacity="0.7" x="140" y="478" text-anchor="middle">→ Setup Dispairs (6 ramos)</text>
-<text fill="#3C3489" font-size="10" x="140" y="498" text-anchor="middle" font-weight="500">disparar_acessos</text>
-<text fill="#3C3489" font-size="9" opacity="0.7" x="140" y="511" text-anchor="middle">→ Enviar acessos grupo</text>
-<text fill="#3C3489" font-size="10" x="140" y="660" text-anchor="middle" font-weight="500">mensagem_disparada</text>
-<text fill="#3C3489" font-size="9" opacity="0.7" x="140" y="673" text-anchor="middle">→ SquadLead New Menu</text>
-<text fill="#3C3489" font-size="10" x="140" y="693" text-anchor="middle" font-weight="500">novo cardápio</text>
-<text fill="#3C3489" font-size="9" opacity="0.7" x="140" y="706" text-anchor="middle">→ Docupipe + Menu IA</text>
-<text fill="#3C3489" font-size="10" x="140" y="725" text-anchor="middle" font-weight="500">disparo_treinamento</text>
-<text fill="#3C3489" font-size="9" opacity="0.7" x="140" y="738" text-anchor="middle">→ Send Link Ativacao (poll)</text>
+<rect class="svg-box-n8n" x="40" y="540" width="200" height="80" rx="10" stroke-width="1"/>
+<text class="svg-text-n8n" font-size="14px" font-weight="500" x="140" y="565" text-anchor="middle">Barramento</text>
+<text class="svg-text-n8n" font-size="11" x="140" y="585" text-anchor="middle">Propriedades-chave</text>
+<text class="svg-text-n8n-soft" font-size="10" x="140" y="602" text-anchor="middle">Disparam workflows n8n</text>
+<line class="leaf-line svg-branch-n8n" x1="140" y1="540" x2="140" y2="470"/>
+<line class="leaf-line svg-branch-n8n" x1="140" y1="540" x2="140" y2="500"/>
+<line class="leaf-line svg-branch-n8n" x1="140" y1="620" x2="140" y2="660"/>
+<line class="leaf-line svg-branch-n8n" x1="140" y1="620" x2="140" y2="690"/>
+<line class="leaf-line svg-branch-n8n" x1="140" y1="620" x2="140" y2="720"/>
+<text class="svg-text-n8n" font-size="10" x="140" y="465" text-anchor="middle" font-weight="500">gatilho_disparos_setup</text>
+<text class="svg-text-n8n-soft" font-size="9" x="140" y="478" text-anchor="middle">→ Setup Dispairs (6 ramos)</text>
+<text class="svg-text-n8n" font-size="10" x="140" y="498" text-anchor="middle" font-weight="500">disparar_acessos</text>
+<text class="svg-text-n8n-soft" font-size="9" x="140" y="511" text-anchor="middle">→ Enviar acessos grupo</text>
+<text class="svg-text-n8n" font-size="10" x="140" y="660" text-anchor="middle" font-weight="500">mensagem_disparada</text>
+<text class="svg-text-n8n-soft" font-size="9" x="140" y="673" text-anchor="middle">→ SquadLead New Menu</text>
+<text class="svg-text-n8n" font-size="10" x="140" y="693" text-anchor="middle" font-weight="500">novo cardápio</text>
+<text class="svg-text-n8n-soft" font-size="9" x="140" y="706" text-anchor="middle">→ Docupipe + Menu IA</text>
+<text class="svg-text-n8n" font-size="10" x="140" y="725" text-anchor="middle" font-weight="500">disparo_treinamento</text>
+<text class="svg-text-n8n-soft" font-size="9" x="140" y="738" text-anchor="middle">→ Send Link Ativacao (poll)</text>
 </g>
 
 <g data-stage="stage-infra">
-<rect x="200" y="740" width="240" height="80" rx="10" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1"/>
-<text fill="#085041" font-size="14px" font-weight="500" x="320" y="765" text-anchor="middle">Infra · sub-workflows</text>
-<text fill="#085041" font-size="11" x="320" y="785" text-anchor="middle">Supabase · UAZAPI · HubSpot API</text>
-<text fill="#085041" font-size="10" x="320" y="802" text-anchor="middle" opacity="0.7">Compartilhados por todos</text>
-<line class="leaf-line" stroke="#1D9E75" x1="280" y1="820" x2="220" y2="870"/>
-<line class="leaf-line" stroke="#1D9E75" x1="320" y1="820" x2="320" y2="870"/>
-<line class="leaf-line" stroke="#1D9E75" x1="360" y1="820" x2="420" y2="870"/>
-<text fill="#085041" font-size="10" x="220" y="875" text-anchor="middle" font-weight="500">Instance Selector</text>
-<text fill="#085041" font-size="10" x="320" y="875" text-anchor="middle" font-weight="500">Horas Economizadas</text>
-<text fill="#085041" font-size="10" x="420" y="875" text-anchor="middle" font-weight="500">Métrica Erros RPA</text>
-<text fill="#854F0B" font-size="9" x="420" y="890" text-anchor="middle">⚠ só 2 de 7 conectados</text>
+<rect class="svg-box-trigger" x="200" y="740" width="240" height="80" rx="10" stroke-width="1"/>
+<text class="svg-text-trigger" font-size="14px" font-weight="500" x="320" y="765" text-anchor="middle">Infra · sub-workflows</text>
+<text class="svg-text-trigger" font-size="11" x="320" y="785" text-anchor="middle">Supabase · UAZAPI · HubSpot API</text>
+<text class="svg-text-trigger" font-size="10" opacity="0.85" x="320" y="802" text-anchor="middle">Compartilhados por todos</text>
+<line class="leaf-line svg-branch-trigger" x1="280" y1="820" x2="220" y2="870"/>
+<line class="leaf-line svg-branch-trigger" x1="320" y1="820" x2="320" y2="870"/>
+<line class="leaf-line svg-branch-trigger" x1="360" y1="820" x2="420" y2="870"/>
+<text class="svg-text-trigger" font-size="10" x="220" y="875" text-anchor="middle" font-weight="500">Instance Selector</text>
+<text class="svg-text-trigger" font-size="10" x="320" y="875" text-anchor="middle" font-weight="500">Horas Economizadas</text>
+<text class="svg-text-trigger" font-size="10" x="420" y="875" text-anchor="middle" font-weight="500">Métrica Erros RPA</text>
+<text class="svg-text-risk-med" font-size="9" x="420" y="890" text-anchor="middle">⚠ só 2 de 7 conectados</text>
 </g>
 </svg>
 <div class="map-hint">Clique em qualquer ramo do diagrama para abrir o detalhamento abaixo</div>
@@ -599,7 +605,7 @@
           <div class="item-risk risk-high"><i class="ti ti-alert-triangle"></i>API Key Docupipe + token UAZAPI hardcoded · 6 nodes órfãos · webhooks sem auth</div>
         </div>
         <div class="item item-n8n">
-          <div class="item-name">Menu IA Mountage <span style="font-size:10px; padding:1px 5px; background:rgba(163,45,45,0.15); border-radius:3px;">MVP</span></div>
+          <div class="item-name">Menu IA Mountage <span style="font-size:10px; padding:1px 5px; background:rgba(163,45,45,0.2); border-radius:3px;">MVP</span></div>
           <div class="item-desc">OpenAI Assistant + Google Sheets + envio ao backend Takeat.</div>
           <div class="item-risk risk-high"><i class="ti ti-alert-triangle"></i>Senha Takeat em texto claro · planilha "writer/anyone" · ramo múltiplos arquivos incompleto</div>
         </div>
