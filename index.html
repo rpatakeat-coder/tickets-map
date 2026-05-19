@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa Mental — Tickets HubSpot ↔ n8n (Takeat)</title>
+<style>
+  :root {
+    --bg: #FAF9F5;
+    --surface: #FFFFFF;
+    --surface-2: #F1EFE8;
+    --text: #1F1F1E;
+    --text-2: #5F5E5A;
+    --text-3: #888780;
+    --border: rgba(0,0,0,0.12);
+    --hs-bg: #E6F1FB;
+    --hs-bg-hover: #B5D4F4;
+    --hs-text: #0C447C;
+    --hs-text-2: #185FA5;
+    --nn-bg: #EEEDFE;
+    --nn-bg-hover: #CECBF6;
+    --nn-text: #3C3489;
+    --nn-text-2: #534AB7;
+    --crit-bg: #FCEBEB;
+    --crit-text: #791F1F;
+    --ok-bg: #EAF3DE;
+    --ok-text: #27500A;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1A1915;
+      --surface: #25241F;
+      --surface-2: #2C2C2A;
+      --text: #E8E6DA;
+      --text-2: #B4B2A9;
+      --text-3: #888780;
+      --border: rgba(255,255,255,0.12);
+      --hs-bg: #0C447C;
+      --hs-bg-hover: #185FA5;
+      --hs-text: #B5D4F4;
+      --hs-text-2: #85B7EB;
+      --nn-bg: #3C3489;
+      --nn-bg-hover: #534AB7;
+      --nn-text: #CECBF6;
+      --nn-text-2: #AFA9EC;
+      --crit-bg: #501313;
+      --crit-text: #F7C1C1;
+      --ok-bg: #173404;
+      --ok-text: #C0DD97;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 32px 20px 80px;
+    line-height: 1.6;
+  }
+  .container { max-width: 880px; margin: 0 auto; }
+  h1 { font-size: 22px; font-weight: 500; margin: 0 0 6px; }
+  .subtitle { font-size: 14px; color: var(--text-2); margin: 0 0 20px; }
+  .legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: var(--text-2);
+    margin: 0 0 24px;
+    padding: 12px 14px;
+    background: var(--surface-2);
+    border-radius: 8px;
+  }
+  .legend .sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: 1px; }
+  .stage {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin: 0 0 16px;
+  }
+  .head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--surface-2);
+    color: var(--text-2);
+    font-size: 13px; font-weight: 500;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .ttl { font-size: 16px; font-weight: 500; margin: 0; }
+  .sub { font-size: 12px; color: var(--text-2); margin: 2px 0 0; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .cols { grid-template-columns: 1fr; } }
+  .col h4 { font-size: 12px; font-weight: 500; margin: 0 0 8px; color: var(--text-2); }
+  .it {
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin: 0 0 8px;
+    font-size: 13px;
+    transition: filter 0.15s;
+  }
+  .it:hover { filter: brightness(0.97); }
+  .nm { font-weight: 500; font-size: 13px; }
+  .mt { font-size: 11.5px; margin-top: 3px; line-height: 1.45; }
+  .hs { background: var(--hs-bg); }
+  .hs .nm { color: var(--hs-text); }
+  .hs .mt { color: var(--hs-text-2); }
+  .nn { background: var(--nn-bg); }
+  .nn .nm { color: var(--nn-text); }
+  .nn .mt { color: var(--nn-text-2); }
+  .crit, .ok {
+    display: inline-block;
+    font-size: 10px;
+    padding: 1px 7px;
+    border-radius: 8px;
+    margin-left: 6px;
+    font-weight: 500;
+  }
+  .crit { background: var(--crit-bg); color: var(--crit-text); }
+  .ok { background: var(--ok-bg); color: var(--ok-text); }
+  .arr { text-align: center; color: var(--text-3); font-size: 16px; margin: -6px 0 8px; }
+  .none {
+    background: transparent;
+    color: var(--text-3);
+    font-size: 12px;
+    font-style: italic;
+    padding: 10px 12px;
+  }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11.5px;
+    background: var(--surface-2);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+  details {
+    margin-top: 20px;
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 18px;
+  }
+  summary {
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 4px 0;
+  }
+  summary:hover { color: var(--nn-text); }
+  .props {
+    font-size: 12.5px;
+    color: var(--text-2);
+    margin-top: 10px;
+    line-height: 1.75;
+  }
+  .props strong { color: var(--text); font-weight: 500; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Mapa mental — Jornada do ticket de Setup</h1>
+<p class="subtitle">Conexões entre fluxos do HubSpot e workflows do n8n na operação da Takeat</p>
+
+<div class="legend">
+  <span><span class="sw" style="background:#B5D4F4"></span>HubSpot (deals/workflows)</span>
+  <span><span class="sw" style="background:#CECBF6"></span>n8n (workflows)</span>
+  <span><span class="crit">crítico</span> dívida técnica / risco</span>
+  <span><span class="ok">ok</span> bem implementado</span>
+</div>
+
+<!-- ETAPA 0 -->
+<div class="stage">
+  <div class="head">
+    <div class="num">0</div>
+    <div>
+      <p class="ttl">Pré-ticket — criação do deal</p>
+      <p class="sub">Ainda na pipeline comercial, antes do Setup existir</p>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <h4>HubSpot</h4>
+      <div class="it hs">
+        <div class="nm">Definir Perfil Cliente de Tickets</div>
+        <div class="mt">Se perfil do cliente é conhecido → copia <code>Perfil do Cliente</code> para os tickets associados</div>
+      </div>
+      <div class="it hs">
+        <div class="nm">[Novo Onboarding] Cliente Recebido</div>
+        <div class="mt">Após criar o deal → cria o <strong>Ticket [Setup]</strong> que dispara toda a jornada</div>
+      </div>
+    </div>
+    <div class="col">
+      <h4>n8n</h4>
+      <div class="none">Sem n8n nesta etapa</div>
+    </div>
+  </div>
+</div>
+<div class="arr">↓</div>
+
+<!-- ETAPA 1 -->
+<div class="stage">
+  <div class="head">
+    <div class="num">1</div>
+    <div>
+      <p class="ttl">Ticket criado — Cliente Recebido</p>
+      <p class="sub">Inscrição automática em múltiplas automações</p>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <h4>HubSpot</h4>
+      <div class="it hs">
+        <div class="nm">Criação tarefa Squadleader</div>
+        <div class="mt">Cria tarefa "Novo cliente Setup - [Negócio]" → atribui ao Proprietário do ticket</div>
+      </div>
+      <div class="it hs">
+        <div class="nm">Disparo SquadLeader novo ticket</div>
+        <div class="mt">Quando ticket entra (Record created) → notificação in-app para o Proprietário</div>
+      </div>
+      <div class="it hs">
+        <div class="nm">[RPA] Disparar Acessos no Grupo</div>
+        <div class="mt">Status = Cliente Recebido → atraso 20 min → define <code>Disparar Acessos = Sim</code></div>
+      </div>
+      <div class="it hs">
+        <div class="nm">Aviso novo Cliente Recebido</div>
+        <div class="mt">Define <code>gatilho_disparos_setup</code> = [i] Aviso novo Cliente Recebido</div>
+      </div>
+      <div class="it hs">
+        <div class="nm">[Suporte] Categoria SO + e-mail</div>
+        <div class="mt">Categoriza ticket e envia por e-mail ao proprietário</div>
+      </div>
+    </div>
+    <div class="col">
+      <h4>n8n (chamados por gatilho)</h4>
+      <div class="it nn">
+        <div class="nm">Setup Dispairs <span class="crit">crítico</span></div>
+        <div class="mt">Switch de 7 saídas em <code>gatilho_disparos_setup</code>. Aqui: saída [i] Aviso → notifica Squad Leader hardcoded (5527999787297)</div>
+      </div>
+      <div class="it nn">
+        <div class="nm">Enviar acessos grupo Whatsapp <span class="crit">senha exposta</span></div>
+        <div class="mt">Disparado por <code>Disparar Acessos = true</code>. Envia email + senha no WhatsApp e na descrição do grupo</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="arr">↓</div>
+
+<!-- ETAPA 2 -->
+<div class="stage">
+  <div class="head">
+    <div class="num">2</div>
+    <div>
+      <p class="ttl">Username atribuído</p>
+      <p class="sub">Cliente recebeu username da Dash Takeat</p>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <h4>HubSpot</h4>
+      <div class="it hs">
+        <div class="nm">Username no dash → Negócio</div>
+        <div class="mt"><code>username no dash</code> do ticket é atualizado E pipeline = Setup (NOVO) → propaga para o deal associado</div>
+      </div>
+    </div>
+    <div class="col">
+      <h4>n8n</h4>
+      <div class="none">Dado consumido nas etapas seguintes (cardápio pronto, acessos)</div>
+    </div>
+  </div>
+</div>
+<div class="arr">↓</div>
+
+<!-- ETAPA 3 -->
+<div class="stage">
+  <div class="head">
+    <div class="num">3</div>
+    <div>
+      <p class="ttl">Etapa Cardápio — Montagem</p>
+      <p class="sub">Anexo do cardápio + processamento por IA</p>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <h4>HubSpot</h4>
+      <div class="it hs">
+        <div class="nm">Criação tarefa montador cardápio</div>
+        <div class="mt">Status = Montagem de Cardápio → cria tarefa "Cardápio - [Negócio]" → atribui ao Responsável pela montagem</div>
+      </div>
+    </div>
+    <div class="col">
+      <h4>n8n</h4>
+      <div class="it nn">
+        <div class="nm">Integração Docupipe (Brittes) <span class="crit">credenciais hardcoded</span></div>
+        <div class="mt">Trigger: <code>gatilho novo cardápio = SIM</code>. Sobe anexo no Docupipe → OCR → padroniza schema (Pizzaria/Geral) → notifica grupos</div>
+      </div>
+      <div class="it nn">
+        <div class="nm">Menu IA Mountage <span class="crit">manual + senha exposta</span></div>
+        <div class="mt">Lê anexos → Assistant "Menu Creator" gera JSON → cria Google Sheet → envia Excel ao backend. <strong>Ainda em MVP</strong></div>
+      </div>
+      <div class="it nn">
+        <div class="nm">Send Message SquadLead New Menu <span class="crit">props não solicitadas</span></div>
+        <div class="mt">Deal recebe novo cardápio → notifica João Lucas e Brittes (hardcoded) com link do arquivo</div>
+      </div>
+      <div class="it nn">
+        <div class="nm">Enviar mensagem cardápio pronto</div>
+        <div class="mt">Cardápio finalizado → mensagem no grupo (ou inbox + aviso) com link <code>pedido.takeat.app/{username}</code></div>
+      </div>
+      <div class="it nn">
+        <div class="nm">Setup Dispairs — saídas [c] cardápio</div>
+        <div class="mt">Validação cardápio + Ajuste cardápio → mensagens duais (grupo + privado). Saída [i] sem cardápio → escalona Vendedor → Brittes → Segatto → Giovanni</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="arr">↓</div>
+
+<!-- ETAPA 4 -->
+<div class="stage">
+  <div class="head">
+    <div class="num">4</div>
+    <div>
+      <p class="ttl">Etapa Configurações</p>
+      <p class="sub">Agendamento + reunião de configuração dos dispositivos</p>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <h4>HubSpot</h4>
+      <div class="it hs">
+        <div class="nm">Fluxo operacional — Criar observações por etapa</div>
+        <div class="mt">Quando status muda (Montagem / Revisão / Agendamento) → cria observação correspondente → atualiza registro</div>
+      </div>
+    </div>
+    <div class="col">
+      <h4>n8n</h4>
+      <div class="it nn">
+        <div class="nm">Setup Dispairs — saídas [c] config</div>
+        <div class="mt">"Agendar configurações" e "Lembrete reunião" → busca responsável no Supabase → mensagem dual (grupo + privado)</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="arr">↓</div>
+
+<!-- ETAPA 5 -->
+<div class="stage">
+  <div class="head">
+    <div class="num">5</div>
+    <div>
+      <p class="ttl">Ativação — Treinamento</p>
+      <p class="sub">Pós-Setup, treinamentos diários</p>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <h4>HubSpot</h4>
+      <div class="none">Sem workflow exclusivo desta etapa</div>
+    </div>
+    <div class="col">
+      <h4>n8n (self-triggered)</h4>
+      <div class="it nn">
+        <div class="nm">Send Link Setup Ativacao <span class="ok">Error Trigger</span></div>
+        <div class="mt">Schedule a cada 2 min → poll de deals em Setup ou Ativação com <code>disparo_treinamento</code> vazio → busca eventos do Google Calendar → IA humaniza → envia para grupo → marca como disparado</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="arr">↓</div>
+
+<!-- ETAPA 6 -->
+<div class="stage">
+  <div class="head">
+    <div class="num">6</div>
+    <div>
+      <p class="ttl">Conclusão do Setup</p>
+      <p class="sub">Ticket fechado + handoff para o time correto</p>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <h4>HubSpot</h4>
+      <div class="it hs">
+        <div class="nm">Conclusão tarefas por tipo</div>
+        <div class="mt">Fecha automaticamente tarefas associadas ao ticket de Setup quando ele é concluído</div>
+      </div>
+    </div>
+    <div class="col">
+      <h4>n8n</h4>
+      <div class="it nn">
+        <div class="nm">Setup Dispairs — [i] Conclusão <span class="crit">bug Onboarding=Mkt</span></div>
+        <div class="mt">Cruza owner × HubSpot Teams API → Switch1 (7 equipes) → notifica grupo correto + cria engagement (task) + atualiza owner</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DETALHES -->
+<details>
+  <summary>Propriedades-chave que conectam HubSpot ↔ n8n</summary>
+  <div class="props">
+    <strong>Ticket properties</strong> usadas como gatilhos ou dados de entrada:<br>
+    <code>gatilho_disparos_setup</code> — roteador principal do Setup Dispairs (7 valores possíveis)<br>
+    <code>Disparar Acessos</code> — dispara Enviar acessos grupo Whatsapp<br>
+    <code>gatilho novo cardápio</code> — dispara integração Docupipe<br>
+    <code>disparo_treinamento</code> — controla envio de links de treinamento<br>
+    <code>cardapio_anexado</code> — IDs dos arquivos para Docupipe e Menu IA<br>
+    <code>username_no_dash</code> — usado em mensagens de cardápio pronto e acessos<br>
+    <code>email_no_dash</code>, <code>senha_no_dash</code> — credenciais enviadas ao cliente<br>
+    <code>tipo_de_setup</code> — filtro para tickets de Cardápio<br><br>
+    <strong>Deal properties</strong>:<br>
+    <code>waliid</code> — ID do grupo WhatsApp do cliente (usado em quase todos os n8n)<br>
+    <code>celular</code> — fallback para envio privado<br>
+    <code>vendedor</code> — cruzado com Supabase para nome do vendedor<br>
+    <code>mensagem_disparada</code> — valor avaliado pelo Send Message SquadLead New Menu<br>
+    <code>cardapio_da_loja</code> — URL do arquivo do cardápio
+  </div>
+</details>
+
+<details>
+  <summary>Pontos críticos transversais (consolidado de todos os workflows)</summary>
+  <div class="props">
+    <strong>Segurança</strong>: senha do cliente em texto claro no WhatsApp e na descrição do grupo (Enviar acessos), credenciais hardcoded no Menu IA e Docupipe, planilhas com permissão pública de edição.<br><br>
+    <strong>Dívida técnica</strong>: 17 nodes Evolution API órfãos no Setup Dispairs, 9 no Enviar acessos, 6 no Menu IA. Vários números e IDs de grupo hardcoded sem fallback.<br><br>
+    <strong>Robustez</strong>: Setup Dispairs e Menu IA não têm Error Trigger. Bug confirmado: Onboarding Group = Mkt Group. <code>cardapio_da_loja</code> usado sem ser solicitado no Send Message SquadLead. Verificação de participação no grupo por últimos 8 dígitos pode dar falsos positivos.<br><br>
+    <strong>Operação</strong>: Menu IA ainda em trigger manual. Send Link Setup Ativacao é o único self-triggered. Os demais n8n dependem de Execute Workflow chamado por outro fluxo (geralmente um workflow do HubSpot que aciona via webhook).
+  </div>
+</details>
+
+<details>
+  <summary>Quem dispara quem? (visão de causalidade)</summary>
+  <div class="props">
+    <strong>HubSpot dispara n8n via</strong>:<br>
+    • Workflow HubSpot edita uma property do ticket/deal → webhook → Execute Workflow Trigger no n8n<br>
+    • Propriedade modificada: <code>gatilho_disparos_setup</code>, <code>Disparar Acessos</code>, <code>gatilho novo cardápio</code>, <code>mensagem_disparada</code><br><br>
+    <strong>n8n self-triggered</strong>:<br>
+    • Send Link Setup Ativacao — Schedule Trigger (a cada 2 min)<br><br>
+    <strong>n8n chama n8n (sub-workflows)</strong>:<br>
+    • Instance Selector — escolhe token UAZAPI correto<br>
+    • Horas Economizadas — registra ganho operacional<br>
+    • Métrica Erros Painel RPA — registra falhas<br><br>
+    <strong>Docupipe chama n8n via webhook</strong>:<br>
+    • <code>/documento_processado</code> — quando OCR termina<br>
+    • <code>/documento_standarizado</code> — quando padronização termina
+  </div>
+</details>
+
+</div>
+</body>
+</html>
