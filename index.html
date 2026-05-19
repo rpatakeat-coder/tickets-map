@@ -3,451 +3,770 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mapa Mental — Tickets HubSpot ↔ n8n (Takeat)</title>
+<title>Mapa Mental — Ticket de Setup · Takeat</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.34.0/tabler-icons.min.css">
 <style>
   :root {
-    --bg: #FAF9F5;
-    --surface: #FFFFFF;
-    --surface-2: #F1EFE8;
-    --text: #1F1F1E;
-    --text-2: #5F5E5A;
-    --text-3: #888780;
-    --border: rgba(0,0,0,0.12);
-    --hs-bg: #E6F1FB;
-    --hs-bg-hover: #B5D4F4;
-    --hs-text: #0C447C;
-    --hs-text-2: #185FA5;
-    --nn-bg: #EEEDFE;
-    --nn-bg-hover: #CECBF6;
-    --nn-text: #3C3489;
-    --nn-text-2: #534AB7;
-    --crit-bg: #FCEBEB;
-    --crit-text: #791F1F;
-    --ok-bg: #EAF3DE;
-    --ok-text: #27500A;
+    --color-background-primary: #ffffff;
+    --color-background-secondary: #f7f6f3;
+    --color-background-tertiary: #efede7;
+    --color-text-primary: #2b2b2a;
+    --color-text-secondary: #5f5e5a;
+    --color-text-tertiary: #888780;
+    --color-border-tertiary: rgba(0, 0, 0, 0.12);
+    --color-border-secondary: rgba(0, 0, 0, 0.25);
+    --color-border-primary: rgba(0, 0, 0, 0.4);
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   }
+
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #1A1915;
-      --surface: #25241F;
-      --surface-2: #2C2C2A;
-      --text: #E8E6DA;
-      --text-2: #B4B2A9;
-      --text-3: #888780;
-      --border: rgba(255,255,255,0.12);
-      --hs-bg: #0C447C;
-      --hs-bg-hover: #185FA5;
-      --hs-text: #B5D4F4;
-      --hs-text-2: #85B7EB;
-      --nn-bg: #3C3489;
-      --nn-bg-hover: #534AB7;
-      --nn-text: #CECBF6;
-      --nn-text-2: #AFA9EC;
-      --crit-bg: #501313;
-      --crit-text: #F7C1C1;
-      --ok-bg: #173404;
-      --ok-text: #C0DD97;
+      --color-background-primary: #1f1f1e;
+      --color-background-secondary: #2a2a28;
+      --color-background-tertiary: #353532;
+      --color-text-primary: #e5e3dc;
+      --color-text-secondary: #b4b2a9;
+      --color-text-tertiary: #888780;
+      --color-border-tertiary: rgba(255, 255, 255, 0.12);
+      --color-border-secondary: rgba(255, 255, 255, 0.25);
     }
   }
+
   * { box-sizing: border-box; }
+
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
+    font-family: var(--font-sans);
+    background: var(--color-background-tertiary);
+    color: var(--color-text-primary);
     margin: 0;
-    padding: 32px 20px 80px;
+    padding: 1.5rem 1rem;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .page-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .page-header h1 {
+    font-size: 22px;
+    font-weight: 500;
+    margin: 0 0 0.25rem;
+  }
+
+  .page-header p {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  .summary {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-lg);
+    padding: 14px 16px;
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    margin-bottom: 1rem;
     line-height: 1.6;
   }
-  .container { max-width: 880px; margin: 0 auto; }
-  h1 { font-size: 22px; font-weight: 500; margin: 0 0 6px; }
-  .subtitle { font-size: 14px; color: var(--text-2); margin: 0 0 20px; }
-  .legend {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    font-size: 12px;
-    color: var(--text-2);
-    margin: 0 0 24px;
-    padding: 12px 14px;
-    background: var(--surface-2);
-    border-radius: 8px;
-  }
-  .legend .sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: 1px; }
-  .stage {
-    background: var(--surface);
-    border: 0.5px solid var(--border);
-    border-radius: 12px;
-    padding: 16px 18px;
-    margin: 0 0 16px;
-  }
-  .head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-  .num {
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    background: var(--surface-2);
-    color: var(--text-2);
-    font-size: 13px; font-weight: 500;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-  .ttl { font-size: 16px; font-weight: 500; margin: 0; }
-  .sub { font-size: 12px; color: var(--text-2); margin: 2px 0 0; }
-  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  @media (max-width: 640px) { .cols { grid-template-columns: 1fr; } }
-  .col h4 { font-size: 12px; font-weight: 500; margin: 0 0 8px; color: var(--text-2); }
-  .it {
-    border-radius: 8px;
-    padding: 10px 12px;
-    margin: 0 0 8px;
-    font-size: 13px;
-    transition: filter 0.15s;
-  }
-  .it:hover { filter: brightness(0.97); }
-  .nm { font-weight: 500; font-size: 13px; }
-  .mt { font-size: 11.5px; margin-top: 3px; line-height: 1.45; }
-  .hs { background: var(--hs-bg); }
-  .hs .nm { color: var(--hs-text); }
-  .hs .mt { color: var(--hs-text-2); }
-  .nn { background: var(--nn-bg); }
-  .nn .nm { color: var(--nn-text); }
-  .nn .mt { color: var(--nn-text-2); }
-  .crit, .ok {
-    display: inline-block;
-    font-size: 10px;
-    padding: 1px 7px;
-    border-radius: 8px;
-    margin-left: 6px;
+
+  .summary strong {
+    color: var(--color-text-primary);
     font-weight: 500;
   }
-  .crit { background: var(--crit-bg); color: var(--crit-text); }
-  .ok { background: var(--ok-bg); color: var(--ok-text); }
-  .arr { text-align: center; color: var(--text-3); font-size: 16px; margin: -6px 0 8px; }
-  .none {
-    background: transparent;
-    color: var(--text-3);
+
+  .legend {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
     font-size: 12px;
-    font-style: italic;
-    padding: 10px 12px;
+    color: var(--color-text-secondary);
+    margin-bottom: 1rem;
   }
-  code {
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 11.5px;
-    background: var(--surface-2);
+
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+
+  .map-wrapper {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-lg);
+    padding: 8px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    border: 0.5px solid var(--color-border-tertiary);
+  }
+
+  .map-wrapper svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .map-wrapper svg g[data-stage] { cursor: pointer; transition: opacity 0.15s; }
+  .map-wrapper svg g[data-stage]:hover { opacity: 0.8; }
+  .map-wrapper svg g[data-stage]:hover rect { stroke-width: 2.5; }
+
+  .map-hint {
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    text-align: center;
+    margin-top: 6px;
+    padding-bottom: 4px;
+  }
+
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 1.5rem 0 0.75rem;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--color-text-tertiary);
+  }
+
+  .section-divider::after {
+    content: "";
+    flex: 1;
+    height: 0.5px;
+    background: var(--color-border-tertiary);
+  }
+
+  .stage {
+    margin-bottom: 1rem;
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    background: var(--color-background-primary);
+    overflow: hidden;
+    scroll-margin-top: 12px;
+  }
+
+  .stage-header {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    background: var(--color-background-secondary);
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+  }
+
+  .stage-header:hover { background: var(--color-background-tertiary); }
+
+  .stage-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--color-background-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    border: 0.5px solid var(--color-border-secondary);
+    flex-shrink: 0;
+  }
+
+  .stage-num.support { background: #FAEEDA; border-color: #BA7517; color: #633806; }
+  .stage-num.infra { background: #E1F5EE; border-color: #1D9E75; color: #085041; }
+  .stage-num.bus { background: #EEEDFE; border-color: #7F77DD; color: #3C3489; }
+
+  .stage-title { font-size: 14px; font-weight: 500; flex: 1; }
+  .stage-chev { color: var(--color-text-tertiary); font-size: 18px; transition: transform 0.2s; }
+  .stage.open .stage-chev { transform: rotate(90deg); }
+
+  .stage.flash { animation: flashStage 1.4s ease-out; }
+  @keyframes flashStage {
+    0% { box-shadow: 0 0 0 0 rgba(127, 119, 221, 0.5); }
+    100% { box-shadow: 0 0 0 8px rgba(127, 119, 221, 0); }
+  }
+
+  .stage-body { padding: 14px 16px; display: none; }
+  .stage.open .stage-body { display: block; }
+
+  .cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  @media (max-width: 700px) {
+    .cols { grid-template-columns: 1fr; }
+  }
+
+  .col-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-text-tertiary);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .item {
+    border-radius: var(--border-radius-md);
+    padding: 8px 10px;
+    margin-bottom: 6px;
+    font-size: 13px;
+    border: 0.5px solid;
+  }
+
+  .item-hub { background: #E6F1FB; border-color: #378ADD; color: #0C447C; }
+  .item-n8n { background: #EEEDFE; border-color: #7F77DD; color: #3C3489; }
+  .item-trigger { background: #E1F5EE; border-color: #1D9E75; color: #085041; }
+  .item-support { background: #FAEEDA; border-color: #BA7517; color: #633806; }
+
+  @media (prefers-color-scheme: dark) {
+    .item-hub { background: rgba(55, 138, 221, 0.15); color: #B5D4F4; }
+    .item-n8n { background: rgba(127, 119, 221, 0.15); color: #CECBF6; }
+    .item-trigger { background: rgba(29, 158, 117, 0.15); color: #9FE1CB; }
+    .item-support { background: rgba(186, 117, 23, 0.15); color: #FAC775; }
+  }
+
+  .item-name { font-weight: 500; margin-bottom: 2px; }
+  .item-desc { font-size: 12px; opacity: 0.85; line-height: 1.5; }
+
+  .item code, .trigger-row code {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    background: rgba(0, 0, 0, 0.06);
     padding: 1px 5px;
     border-radius: 3px;
   }
-  details {
-    margin-top: 20px;
-    background: var(--surface);
-    border: 0.5px solid var(--border);
-    border-radius: 12px;
-    padding: 14px 18px;
+
+  @media (prefers-color-scheme: dark) {
+    .item code, .trigger-row code { background: rgba(255, 255, 255, 0.08); }
   }
-  summary {
-    font-size: 14px;
-    font-weight: 500;
+
+  .item-risk {
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 0.5px solid rgba(0, 0, 0, 0.08);
+    font-size: 11px;
+    line-height: 1.45;
+    display: flex;
+    gap: 6px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .item-risk { border-top-color: rgba(255, 255, 255, 0.1); }
+  }
+
+  .item-risk i { flex-shrink: 0; margin-top: 1px; }
+  .risk-high { color: #A32D2D; }
+  .risk-med { color: #854F0B; }
+
+  @media (prefers-color-scheme: dark) {
+    .risk-high { color: #F09595; }
+    .risk-med { color: #FAC775; }
+  }
+
+  .trigger-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    margin-bottom: 8px;
+    padding: 6px 10px;
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-md);
+  }
+
+  .trigger-row i { margin-top: 2px; flex-shrink: 0; }
+
+  .controls { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; }
+
+  .ctrl-btn {
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: var(--border-radius-md);
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-secondary);
     cursor: pointer;
-    padding: 4px 0;
+    color: var(--color-text-primary);
+    font-family: inherit;
+    transition: background 0.15s;
   }
-  summary:hover { color: var(--nn-text); }
-  .props {
-    font-size: 12.5px;
-    color: var(--text-2);
-    margin-top: 10px;
-    line-height: 1.75;
+
+  .ctrl-btn:hover { background: var(--color-background-secondary); }
+
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 6px;
+    margin-top: 6px;
   }
-  .props strong { color: var(--text); font-weight: 500; }
+
+  .cat-pill {
+    background: rgba(255, 255, 255, 0.5);
+    border: 0.5px solid rgba(186, 117, 23, 0.3);
+    padding: 6px 8px;
+    border-radius: var(--border-radius-md);
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .cat-pill strong { display: block; font-weight: 500; font-size: 11px; margin-bottom: 2px; }
+
+  @media (prefers-color-scheme: dark) {
+    .cat-pill { background: rgba(255, 255, 255, 0.05); }
+  }
+
+  .footer {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 0.5px solid var(--color-border-tertiary);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    text-align: center;
+  }
 </style>
 </head>
 <body>
-<div class="container">
+<div class="page">
 
-<h1>Mapa mental — Jornada do ticket de Setup</h1>
-<p class="subtitle">Conexões entre fluxos do HubSpot e workflows do n8n na operação da Takeat</p>
+<div class="page-header">
+  <h1>Mapa mental — Ticket de Setup</h1>
+  <p>Jornada do ticket cruzando workflows do HubSpot e do n8n, com pontos críticos por workflow.</p>
+</div>
+
+<div class="summary">
+  <strong>Como usar</strong> — clique em qualquer ramo do diagrama radial para abrir o detalhamento correspondente abaixo. Ou role direto pelos cards. Cada ramo conecta o ticket aos workflows do HubSpot e n8n que disparam em paralelo ou em sequência. Pontos críticos marcados em vermelho (alto risco) ou âmbar (atenção).
+</div>
 
 <div class="legend">
-  <span><span class="sw" style="background:#B5D4F4"></span>HubSpot (deals/workflows)</span>
-  <span><span class="sw" style="background:#CECBF6"></span>n8n (workflows)</span>
-  <span><span class="crit">crítico</span> dívida técnica / risco</span>
-  <span><span class="ok">ok</span> bem implementado</span>
+  <div class="legend-item"><span class="legend-dot" style="background:#E6F1FB;border:0.5px solid #378ADD"></span>HubSpot</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#EEEDFE;border:0.5px solid #7F77DD"></span>n8n</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#FAEEDA;border:0.5px solid #BA7517"></span>Suporte</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#E1F5EE;border:0.5px solid #1D9E75"></span>Infra</div>
+  <div class="legend-item"><i class="ti ti-alert-triangle" style="color:#A32D2D"></i> Risco alto</div>
+  <div class="legend-item"><i class="ti ti-alert-circle" style="color:#854F0B"></i> Atenção</div>
 </div>
 
-<!-- ETAPA 0 -->
-<div class="stage">
-  <div class="head">
-    <div class="num">0</div>
-    <div>
-      <p class="ttl">Pré-ticket — criação do deal</p>
-      <p class="sub">Ainda na pipeline comercial, antes do Setup existir</p>
-    </div>
-  </div>
-  <div class="cols">
-    <div class="col">
-      <h4>HubSpot</h4>
-      <div class="it hs">
-        <div class="nm">Definir Perfil Cliente de Tickets</div>
-        <div class="mt">Se perfil do cliente é conhecido → copia <code>Perfil do Cliente</code> para os tickets associados</div>
-      </div>
-      <div class="it hs">
-        <div class="nm">[Novo Onboarding] Cliente Recebido</div>
-        <div class="mt">Após criar o deal → cria o <strong>Ticket [Setup]</strong> que dispara toda a jornada</div>
-      </div>
-    </div>
-    <div class="col">
-      <h4>n8n</h4>
-      <div class="none">Sem n8n nesta etapa</div>
-    </div>
-  </div>
-</div>
-<div class="arr">↓</div>
+<div class="map-wrapper">
+<svg viewBox="0 0 1400 1100" xmlns="http://www.w3.org/2000/svg" role="img" font-family="-apple-system, BlinkMacSystemFont, sans-serif">
+<title>Mapa mental do ticket de Setup</title>
+<desc>Diagrama radial com 8 ramos conectando o ticket de Setup às etapas da jornada, workflows do HubSpot, workflows do n8n, gatilhos por propriedade, workflows de Suporte e dependências de infra.</desc>
 
-<!-- ETAPA 1 -->
-<div class="stage">
-  <div class="head">
-    <div class="num">1</div>
-    <div>
-      <p class="ttl">Ticket criado — Cliente Recebido</p>
-      <p class="sub">Inscrição automática em múltiplas automações</p>
-    </div>
-  </div>
-  <div class="cols">
-    <div class="col">
-      <h4>HubSpot</h4>
-      <div class="it hs">
-        <div class="nm">Criação tarefa Squadleader</div>
-        <div class="mt">Cria tarefa "Novo cliente Setup - [Negócio]" → atribui ao Proprietário do ticket</div>
-      </div>
-      <div class="it hs">
-        <div class="nm">Disparo SquadLeader novo ticket</div>
-        <div class="mt">Quando ticket entra (Record created) → notificação in-app para o Proprietário</div>
-      </div>
-      <div class="it hs">
-        <div class="nm">[RPA] Disparar Acessos no Grupo</div>
-        <div class="mt">Status = Cliente Recebido → atraso 20 min → define <code>Disparar Acessos = Sim</code></div>
-      </div>
-      <div class="it hs">
-        <div class="nm">Aviso novo Cliente Recebido</div>
-        <div class="mt">Define <code>gatilho_disparos_setup</code> = [i] Aviso novo Cliente Recebido</div>
-      </div>
-      <div class="it hs">
-        <div class="nm">[Suporte] Categoria SO + e-mail</div>
-        <div class="mt">Categoriza ticket e envia por e-mail ao proprietário</div>
-      </div>
-    </div>
-    <div class="col">
-      <h4>n8n (chamados por gatilho)</h4>
-      <div class="it nn">
-        <div class="nm">Setup Dispairs <span class="crit">crítico</span></div>
-        <div class="mt">Switch de 7 saídas em <code>gatilho_disparos_setup</code>. Aqui: saída [i] Aviso → notifica Squad Leader hardcoded (5527999787297)</div>
-      </div>
-      <div class="it nn">
-        <div class="nm">Enviar acessos grupo Whatsapp <span class="crit">senha exposta</span></div>
-        <div class="mt">Disparado por <code>Disparar Acessos = true</code>. Envia email + senha no WhatsApp e na descrição do grupo</div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="arr">↓</div>
+<defs>
+<style>
+.branch-line { fill:none; stroke-width:2; stroke-linecap:round; }
+.leaf-line { fill:none; stroke-width:1; stroke-linecap:round; opacity:0.5; }
+</style>
+</defs>
 
-<!-- ETAPA 2 -->
-<div class="stage">
-  <div class="head">
-    <div class="num">2</div>
-    <div>
-      <p class="ttl">Username atribuído</p>
-      <p class="sub">Cliente recebeu username da Dash Takeat</p>
-    </div>
-  </div>
-  <div class="cols">
-    <div class="col">
-      <h4>HubSpot</h4>
-      <div class="it hs">
-        <div class="nm">Username no dash → Negócio</div>
-        <div class="mt"><code>username no dash</code> do ticket é atualizado E pipeline = Setup (NOVO) → propaga para o deal associado</div>
-      </div>
-    </div>
-    <div class="col">
-      <h4>n8n</h4>
-      <div class="none">Dado consumido nas etapas seguintes (cardápio pronto, acessos)</div>
-    </div>
-  </div>
-</div>
-<div class="arr">↓</div>
+<path class="branch-line" stroke="#378ADD" d="M 700 530 Q 500 480 320 380"/>
+<path class="branch-line" stroke="#378ADD" d="M 700 530 Q 700 400 700 200"/>
+<path class="branch-line" stroke="#378ADD" d="M 700 530 Q 900 480 1080 380"/>
+<path class="branch-line" stroke="#378ADD" d="M 700 580 Q 950 580 1180 580"/>
+<path class="branch-line" stroke="#378ADD" d="M 700 620 Q 900 700 1080 780"/>
+<path class="branch-line" stroke="#BA7517" d="M 700 620 Q 700 750 700 900"/>
+<path class="branch-line" stroke="#1D9E75" d="M 700 620 Q 500 700 320 780"/>
+<path class="branch-line" stroke="#7F77DD" d="M 700 580 Q 450 580 220 580"/>
 
-<!-- ETAPA 3 -->
-<div class="stage">
-  <div class="head">
-    <div class="num">3</div>
-    <div>
-      <p class="ttl">Etapa Cardápio — Montagem</p>
-      <p class="sub">Anexo do cardápio + processamento por IA</p>
-    </div>
-  </div>
-  <div class="cols">
-    <div class="col">
-      <h4>HubSpot</h4>
-      <div class="it hs">
-        <div class="nm">Criação tarefa montador cardápio</div>
-        <div class="mt">Status = Montagem de Cardápio → cria tarefa "Cardápio - [Negócio]" → atribui ao Responsável pela montagem</div>
-      </div>
-    </div>
-    <div class="col">
-      <h4>n8n</h4>
-      <div class="it nn">
-        <div class="nm">Integração Docupipe (Brittes) <span class="crit">credenciais hardcoded</span></div>
-        <div class="mt">Trigger: <code>gatilho novo cardápio = SIM</code>. Sobe anexo no Docupipe → OCR → padroniza schema (Pizzaria/Geral) → notifica grupos</div>
-      </div>
-      <div class="it nn">
-        <div class="nm">Menu IA Mountage <span class="crit">manual + senha exposta</span></div>
-        <div class="mt">Lê anexos → Assistant "Menu Creator" gera JSON → cria Google Sheet → envia Excel ao backend. <strong>Ainda em MVP</strong></div>
-      </div>
-      <div class="it nn">
-        <div class="nm">Send Message SquadLead New Menu <span class="crit">props não solicitadas</span></div>
-        <div class="mt">Deal recebe novo cardápio → notifica João Lucas e Brittes (hardcoded) com link do arquivo</div>
-      </div>
-      <div class="it nn">
-        <div class="nm">Enviar mensagem cardápio pronto</div>
-        <div class="mt">Cardápio finalizado → mensagem no grupo (ou inbox + aviso) com link <code>pedido.takeat.app/{username}</code></div>
-      </div>
-      <div class="it nn">
-        <div class="nm">Setup Dispairs — saídas [c] cardápio</div>
-        <div class="mt">Validação cardápio + Ajuste cardápio → mensagens duais (grupo + privado). Saída [i] sem cardápio → escalona Vendedor → Brittes → Segatto → Giovanni</div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="arr">↓</div>
+<ellipse cx="700" cy="575" rx="130" ry="58" fill="#3C3489"/>
+<text fill="#fff" font-size="18px" font-weight="500" x="700" y="568" text-anchor="middle">Ticket de Setup</text>
+<text fill="#CECBF6" font-size="12px" x="700" y="588" text-anchor="middle">Takeat · HubSpot + n8n</text>
+<text fill="#CECBF6" font-size="12px" x="700" y="604" text-anchor="middle">7 workflows n8n · 9+ workflows HubSpot</text>
 
-<!-- ETAPA 4 -->
-<div class="stage">
-  <div class="head">
-    <div class="num">4</div>
-    <div>
-      <p class="ttl">Etapa Configurações</p>
-      <p class="sub">Agendamento + reunião de configuração dos dispositivos</p>
-    </div>
-  </div>
-  <div class="cols">
-    <div class="col">
-      <h4>HubSpot</h4>
-      <div class="it hs">
-        <div class="nm">Fluxo operacional — Criar observações por etapa</div>
-        <div class="mt">Quando status muda (Montagem / Revisão / Agendamento) → cria observação correspondente → atualiza registro</div>
-      </div>
-    </div>
-    <div class="col">
-      <h4>n8n</h4>
-      <div class="it nn">
-        <div class="nm">Setup Dispairs — saídas [c] config</div>
-        <div class="mt">"Agendar configurações" e "Lembrete reunião" → busca responsável no Supabase → mensagem dual (grupo + privado)</div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="arr">↓</div>
+<g data-stage="stage-0">
+<rect x="200" y="340" width="240" height="80" rx="10" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+<text fill="#0C447C" font-size="14px" font-weight="500" x="320" y="365" text-anchor="middle">0 · Deal criado</text>
+<text fill="#0C447C" font-size="11" x="320" y="385" text-anchor="middle">Ticket [Setup] gerado</text>
+<text fill="#0C447C" font-size="10" x="320" y="402" text-anchor="middle" opacity="0.7">HubSpot · workflows de deal</text>
+<line class="leaf-line" stroke="#378ADD" x1="320" y1="420" x2="180" y2="450"/>
+<line class="leaf-line" stroke="#378ADD" x1="320" y1="420" x2="180" y2="475"/>
+<text fill="#0C447C" font-size="11" x="175" y="453" text-anchor="end">[Novo Onboarding] Cliente Recebido</text>
+<text fill="#0C447C" font-size="11" x="175" y="478" text-anchor="end">Definir Perfil Cliente de Tickets</text>
+</g>
 
-<!-- ETAPA 5 -->
-<div class="stage">
-  <div class="head">
-    <div class="num">5</div>
-    <div>
-      <p class="ttl">Ativação — Treinamento</p>
-      <p class="sub">Pós-Setup, treinamentos diários</p>
-    </div>
-  </div>
-  <div class="cols">
-    <div class="col">
-      <h4>HubSpot</h4>
-      <div class="none">Sem workflow exclusivo desta etapa</div>
-    </div>
-    <div class="col">
-      <h4>n8n (self-triggered)</h4>
-      <div class="it nn">
-        <div class="nm">Send Link Setup Ativacao <span class="ok">Error Trigger</span></div>
-        <div class="mt">Schedule a cada 2 min → poll de deals em Setup ou Ativação com <code>disparo_treinamento</code> vazio → busca eventos do Google Calendar → IA humaniza → envia para grupo → marca como disparado</div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="arr">↓</div>
+<g data-stage="stage-1">
+<rect x="540" y="120" width="320" height="80" rx="10" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+<text fill="#0C447C" font-size="14px" font-weight="500" x="700" y="145" text-anchor="middle">1 · Cliente Recebido (NOVO)</text>
+<text fill="#0C447C" font-size="11" x="700" y="165" text-anchor="middle">Setup tarefas + acessos + squad leader</text>
+<text fill="#0C447C" font-size="10" x="700" y="182" text-anchor="middle" opacity="0.7">5 workflows HubSpot · 2 workflows n8n</text>
+<line class="leaf-line" stroke="#378ADD" x1="540" y1="180" x2="430" y2="50"/>
+<line class="leaf-line" stroke="#378ADD" x1="540" y1="180" x2="430" y2="80"/>
+<line class="leaf-line" stroke="#378ADD" x1="540" y1="180" x2="430" y2="110"/>
+<line class="leaf-line" stroke="#378ADD" x1="540" y1="180" x2="430" y2="140"/>
+<text fill="#0C447C" font-size="11" x="425" y="53" text-anchor="end">[Novo setup] Tarefa Squadleader</text>
+<text fill="#0C447C" font-size="11" x="425" y="83" text-anchor="end">[Novo setup] Disparo SquadLeader</text>
+<text fill="#0C447C" font-size="11" x="425" y="113" text-anchor="end">[RPA-Setup] Disparar Acessos (+20min)</text>
+<text fill="#0C447C" font-size="11" x="425" y="143" text-anchor="end">[Suporte] Envio ao proprietário</text>
+<line class="leaf-line" stroke="#7F77DD" x1="860" y1="180" x2="975" y2="50"/>
+<line class="leaf-line" stroke="#7F77DD" x1="860" y1="180" x2="975" y2="100"/>
+<rect x="980" y="35" width="220" height="48" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
+<text fill="#3C3489" font-size="11" x="990" y="55">Setup Dispairs</text>
+<text fill="#3C3489" font-size="10" opacity="0.7" x="990" y="70">7 ramos · roteador principal</text>
+<text fill="#A32D2D" font-size="9" x="990" y="80">⚠ sem Error Trigger · 17 nodes órfãos</text>
+<rect x="980" y="88" width="220" height="48" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
+<text fill="#3C3489" font-size="11" x="990" y="108">Enviar acessos grupo Whatsapp</text>
+<text fill="#3C3489" font-size="10" opacity="0.7" x="990" y="123">Email + senha no grupo + descrição</text>
+<text fill="#A32D2D" font-size="9" x="990" y="133">⚠ senha em texto claro · Participants[0]</text>
+</g>
 
-<!-- ETAPA 6 -->
-<div class="stage">
-  <div class="head">
-    <div class="num">6</div>
-    <div>
-      <p class="ttl">Conclusão do Setup</p>
-      <p class="sub">Ticket fechado + handoff para o time correto</p>
-    </div>
-  </div>
-  <div class="cols">
-    <div class="col">
-      <h4>HubSpot</h4>
-      <div class="it hs">
-        <div class="nm">Conclusão tarefas por tipo</div>
-        <div class="mt">Fecha automaticamente tarefas associadas ao ticket de Setup quando ele é concluído</div>
+<g data-stage="stage-cardapio">
+<rect x="960" y="340" width="240" height="80" rx="10" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+<text fill="#0C447C" font-size="14px" font-weight="500" x="1080" y="365" text-anchor="middle">2-5 · Cardápio</text>
+<text fill="#0C447C" font-size="11" x="1080" y="385" text-anchor="middle">Username → Montagem → Validação</text>
+<text fill="#0C447C" font-size="10" x="1080" y="402" text-anchor="middle" opacity="0.7">3 workflows n8n · alta densidade técnica</text>
+<line class="leaf-line" stroke="#7F77DD" x1="1200" y1="380" x2="1240" y2="270"/>
+<line class="leaf-line" stroke="#7F77DD" x1="1200" y1="380" x2="1240" y2="330"/>
+<line class="leaf-line" stroke="#7F77DD" x1="1200" y1="380" x2="1240" y2="390"/>
+<line class="leaf-line" stroke="#7F77DD" x1="1200" y1="380" x2="1240" y2="450"/>
+<rect x="1230" y="245" width="170" height="48" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
+<text fill="#3C3489" font-size="11" x="1240" y="265">Send SquadLead New Menu</text>
+<text fill="#3C3489" font-size="10" opacity="0.7" x="1240" y="280">Notifica João Lucas + Brittes</text>
+<text fill="#854F0B" font-size="9" x="1240" y="289">⚠ propriedades não solicitadas</text>
+<rect x="1230" y="305" width="170" height="48" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
+<text fill="#3C3489" font-size="11" x="1240" y="325">Setup ↔ Docupipe</text>
+<text fill="#3C3489" font-size="10" opacity="0.7" x="1240" y="340">OCR + standardize Excel</text>
+<text fill="#A32D2D" font-size="9" x="1240" y="349">⚠ 2 API keys hardcoded</text>
+<rect x="1230" y="365" width="170" height="48" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
+<text fill="#3C3489" font-size="11" x="1240" y="385">Menu IA Mountage</text>
+<text fill="#3C3489" font-size="10" opacity="0.7" x="1240" y="400">OpenAI + Sheets + Backend</text>
+<text fill="#A32D2D" font-size="9" x="1240" y="409">⚠ MVP · senha em claro</text>
+<rect x="1230" y="425" width="170" height="48" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
+<text fill="#3C3489" font-size="11" x="1240" y="445">Enviar mensagem cardápio pronto</text>
+<text fill="#3C3489" font-size="10" opacity="0.7" x="1240" y="460">Grupo ou inbox · link de validação</text>
+<text fill="#854F0B" font-size="9" x="1240" y="469">⚠ aviso no grupo em ambos os ramos</text>
+</g>
+
+<g data-stage="stage-6">
+<rect x="1060" y="540" width="240" height="80" rx="10" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+<text fill="#0C447C" font-size="14px" font-weight="500" x="1180" y="565" text-anchor="middle">6 · Ativação</text>
+<text fill="#0C447C" font-size="11" x="1180" y="585" text-anchor="middle">Links de treinamento (poll 2min)</text>
+<text fill="#0C447C" font-size="10" x="1180" y="602" text-anchor="middle" opacity="0.7">1 workflow n8n · agendado</text>
+<line class="leaf-line" stroke="#7F77DD" x1="1180" y1="620" x2="1280" y2="640"/>
+<rect x="1230" y="640" width="170" height="48" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
+<text fill="#3C3489" font-size="11" x="1240" y="660">Send Link Setup Ativacao</text>
+<text fill="#3C3489" font-size="10" opacity="0.7" x="1240" y="675">Google Calendar + OpenAI humanize</text>
+<text fill="#854F0B" font-size="9" x="1240" y="684">⚠ token hardcoded · limit=1</text>
+</g>
+
+<g data-stage="stage-7">
+<rect x="960" y="740" width="240" height="80" rx="10" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+<text fill="#0C447C" font-size="14px" font-weight="500" x="1080" y="765" text-anchor="middle">7 · Conclusão</text>
+<text fill="#0C447C" font-size="11" x="1080" y="785" text-anchor="middle">Roteamento por equipe do owner</text>
+<text fill="#0C447C" font-size="10" x="1080" y="802" text-anchor="middle" opacity="0.7">Setup Dispairs (ramo 6) · engagement</text>
+<line class="leaf-line" stroke="#378ADD" x1="1080" y1="820" x2="1080" y2="850"/>
+<text fill="#A32D2D" font-size="10" x="1080" y="870" text-anchor="middle">⚠ Onboarding Group = Mkt Group</text>
+<text fill="#A32D2D" font-size="10" x="1080" y="885" text-anchor="middle">⚠ Switch1 sem default</text>
+</g>
+
+<g data-stage="stage-suporte">
+<rect x="540" y="900" width="320" height="80" rx="10" fill="#FAEEDA" stroke="#BA7517" stroke-width="1"/>
+<text fill="#633806" font-size="14px" font-weight="500" x="700" y="925" text-anchor="middle">Suporte (paralelo)</text>
+<text fill="#633806" font-size="11" x="700" y="945" text-anchor="middle">[Suporte] Definição de Categoria SO</text>
+<text fill="#633806" font-size="10" x="700" y="962" text-anchor="middle" opacity="0.7">100% HubSpot · 2 gatilhos · 9 categorias</text>
+<line class="leaf-line" stroke="#BA7517" x1="540" y1="960" x2="450" y2="1020"/>
+<line class="leaf-line" stroke="#BA7517" x1="860" y1="960" x2="950" y2="1020"/>
+<text fill="#633806" font-size="10" x="445" y="1015" text-anchor="end">Cadastros · Comandas · Caixa</text>
+<text fill="#633806" font-size="10" x="445" y="1030" text-anchor="end">Cardápio · Estoque · Delivery</text>
+<text fill="#633806" font-size="10" x="955" y="1015">Impressão · Acompanhamento</text>
+<text fill="#633806" font-size="10" x="955" y="1030">Sugestão · sub-filtro contato</text>
+</g>
+
+<g data-stage="stage-bus">
+<rect x="40" y="540" width="200" height="80" rx="10" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1"/>
+<text fill="#3C3489" font-size="14px" font-weight="500" x="140" y="565" text-anchor="middle">Barramento</text>
+<text fill="#3C3489" font-size="11" x="140" y="585" text-anchor="middle">Propriedades-chave</text>
+<text fill="#3C3489" font-size="10" x="140" y="602" text-anchor="middle" opacity="0.7">Disparam workflows n8n</text>
+<line class="leaf-line" stroke="#7F77DD" x1="140" y1="540" x2="140" y2="470"/>
+<line class="leaf-line" stroke="#7F77DD" x1="140" y1="540" x2="140" y2="500"/>
+<line class="leaf-line" stroke="#7F77DD" x1="140" y1="620" x2="140" y2="660"/>
+<line class="leaf-line" stroke="#7F77DD" x1="140" y1="620" x2="140" y2="690"/>
+<line class="leaf-line" stroke="#7F77DD" x1="140" y1="620" x2="140" y2="720"/>
+<text fill="#3C3489" font-size="10" x="140" y="465" text-anchor="middle" font-weight="500">gatilho_disparos_setup</text>
+<text fill="#3C3489" font-size="9" opacity="0.7" x="140" y="478" text-anchor="middle">→ Setup Dispairs (6 ramos)</text>
+<text fill="#3C3489" font-size="10" x="140" y="498" text-anchor="middle" font-weight="500">disparar_acessos</text>
+<text fill="#3C3489" font-size="9" opacity="0.7" x="140" y="511" text-anchor="middle">→ Enviar acessos grupo</text>
+<text fill="#3C3489" font-size="10" x="140" y="660" text-anchor="middle" font-weight="500">mensagem_disparada</text>
+<text fill="#3C3489" font-size="9" opacity="0.7" x="140" y="673" text-anchor="middle">→ SquadLead New Menu</text>
+<text fill="#3C3489" font-size="10" x="140" y="693" text-anchor="middle" font-weight="500">novo cardápio</text>
+<text fill="#3C3489" font-size="9" opacity="0.7" x="140" y="706" text-anchor="middle">→ Docupipe + Menu IA</text>
+<text fill="#3C3489" font-size="10" x="140" y="725" text-anchor="middle" font-weight="500">disparo_treinamento</text>
+<text fill="#3C3489" font-size="9" opacity="0.7" x="140" y="738" text-anchor="middle">→ Send Link Ativacao (poll)</text>
+</g>
+
+<g data-stage="stage-infra">
+<rect x="200" y="740" width="240" height="80" rx="10" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1"/>
+<text fill="#085041" font-size="14px" font-weight="500" x="320" y="765" text-anchor="middle">Infra · sub-workflows</text>
+<text fill="#085041" font-size="11" x="320" y="785" text-anchor="middle">Supabase · UAZAPI · HubSpot API</text>
+<text fill="#085041" font-size="10" x="320" y="802" text-anchor="middle" opacity="0.7">Compartilhados por todos</text>
+<line class="leaf-line" stroke="#1D9E75" x1="280" y1="820" x2="220" y2="870"/>
+<line class="leaf-line" stroke="#1D9E75" x1="320" y1="820" x2="320" y2="870"/>
+<line class="leaf-line" stroke="#1D9E75" x1="360" y1="820" x2="420" y2="870"/>
+<text fill="#085041" font-size="10" x="220" y="875" text-anchor="middle" font-weight="500">Instance Selector</text>
+<text fill="#085041" font-size="10" x="320" y="875" text-anchor="middle" font-weight="500">Horas Economizadas</text>
+<text fill="#085041" font-size="10" x="420" y="875" text-anchor="middle" font-weight="500">Métrica Erros RPA</text>
+<text fill="#854F0B" font-size="9" x="420" y="890" text-anchor="middle">⚠ só 2 de 7 conectados</text>
+</g>
+</svg>
+<div class="map-hint">Clique em qualquer ramo do diagrama para abrir o detalhamento abaixo</div>
+</div>
+
+<div class="controls">
+  <button class="ctrl-btn" id="expand-all">Expandir tudo</button>
+  <button class="ctrl-btn" id="collapse-all">Recolher tudo</button>
+</div>
+
+<div class="section-divider">Jornada do Setup (linear)</div>
+
+<div class="stage" id="stage-0">
+  <div class="stage-header"><div class="stage-num">0</div><div class="stage-title">Deal criado → Ticket [Setup] gerado</div><i class="ti ti-chevron-right stage-chev"></i></div>
+  <div class="stage-body">
+    <div class="trigger-row"><i class="ti ti-bolt"></i><span>Gatilho: criação do deal no HubSpot</span></div>
+    <div class="cols">
+      <div>
+        <div class="col-label"><i class="ti ti-building"></i>HubSpot (workflow de deal)</div>
+        <div class="item item-hub"><div class="item-name">[Novo Onboarding] Cliente Recebido</div><div class="item-desc">Cria automaticamente o ticket [Setup] vinculado ao deal.</div></div>
+        <div class="item item-hub"><div class="item-name">Definir Perfil Cliente de Tickets</div><div class="item-desc">Quando perfil do cliente é conhecido, propaga <code>perfil_do_cliente</code> para os tickets associados.</div></div>
       </div>
-    </div>
-    <div class="col">
-      <h4>n8n</h4>
-      <div class="it nn">
-        <div class="nm">Setup Dispairs — [i] Conclusão <span class="crit">bug Onboarding=Mkt</span></div>
-        <div class="mt">Cruza owner × HubSpot Teams API → Switch1 (7 equipes) → notifica grupo correto + cria engagement (task) + atualiza owner</div>
+      <div>
+        <div class="col-label"><i class="ti ti-circle"></i>n8n</div>
+        <div class="item item-n8n" style="opacity:0.5"><div class="item-desc">Nenhuma automação n8n nesta etapa.</div></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- DETALHES -->
-<details>
-  <summary>Propriedades-chave que conectam HubSpot ↔ n8n</summary>
-  <div class="props">
-    <strong>Ticket properties</strong> usadas como gatilhos ou dados de entrada:<br>
-    <code>gatilho_disparos_setup</code> — roteador principal do Setup Dispairs (7 valores possíveis)<br>
-    <code>Disparar Acessos</code> — dispara Enviar acessos grupo Whatsapp<br>
-    <code>gatilho novo cardápio</code> — dispara integração Docupipe<br>
-    <code>disparo_treinamento</code> — controla envio de links de treinamento<br>
-    <code>cardapio_anexado</code> — IDs dos arquivos para Docupipe e Menu IA<br>
-    <code>username_no_dash</code> — usado em mensagens de cardápio pronto e acessos<br>
-    <code>email_no_dash</code>, <code>senha_no_dash</code> — credenciais enviadas ao cliente<br>
-    <code>tipo_de_setup</code> — filtro para tickets de Cardápio<br><br>
-    <strong>Deal properties</strong>:<br>
-    <code>waliid</code> — ID do grupo WhatsApp do cliente (usado em quase todos os n8n)<br>
-    <code>celular</code> — fallback para envio privado<br>
-    <code>vendedor</code> — cruzado com Supabase para nome do vendedor<br>
-    <code>mensagem_disparada</code> — valor avaliado pelo Send Message SquadLead New Menu<br>
-    <code>cardapio_da_loja</code> — URL do arquivo do cardápio
+<div class="stage" id="stage-1">
+  <div class="stage-header"><div class="stage-num">1</div><div class="stage-title">Ticket Setup criado → Cliente Recebido (NOVO)</div><i class="ti ti-chevron-right stage-chev"></i></div>
+  <div class="stage-body">
+    <div class="trigger-row"><i class="ti ti-bolt"></i><span>Status do ticket = <code>Cliente Recebido (Setup NOVO)</code> · ticket recém-criado</span></div>
+    <div class="cols">
+      <div>
+        <div class="col-label"><i class="ti ti-building"></i>HubSpot</div>
+        <div class="item item-hub"><div class="item-name">[Novo setup] Criação tarefa Squadleader</div><div class="item-desc">Cria tarefa "Novo cliente Setup - [Nome do negócio]" e atribui ao proprietário do ticket.</div></div>
+        <div class="item item-hub"><div class="item-name">[Novo setup] Disparo SquadLeader novo ticket</div><div class="item-desc">Define <code>gatilho_disparos_setup = "[i] Aviso novo Cliente Recebido"</code>.</div></div>
+        <div class="item item-hub"><div class="item-name">[RPA - Setup] Disparar Acessos no Grupo</div><div class="item-desc">Atraso de 20 min → define <code>disparar_acessos = Sim</code>.</div></div>
+        <div class="item item-hub"><div class="item-name">[Suporte] Envio de Tickets ao proprietário</div><div class="item-desc">Notificação no app: "Nova Conversa" para proprietário do ticket.</div></div>
+      </div>
+      <div>
+        <div class="col-label"><i class="ti ti-circle"></i>n8n</div>
+        <div class="item item-n8n">
+          <div class="item-name">Setup Dispairs</div>
+          <div class="item-desc">Roteador disparado por <code>gatilho_disparos_setup</code>. Caso "[i] Aviso novo Cliente Recebido" → notifica Squad Leader com resumo.</div>
+          <div class="item-risk risk-high"><i class="ti ti-alert-triangle"></i>Sem Error Trigger · IDs hardcoded · 17 nodes Evolution API órfãos</div>
+        </div>
+        <div class="item item-n8n">
+          <div class="item-name">Enviar acessos grupo Whatsapp</div>
+          <div class="item-desc">Disparado quando <code>disparar_acessos = Sim</code>. Envia email/senha/painéis e atualiza descrição do grupo WhatsApp.</div>
+          <div class="item-risk risk-high"><i class="ti ti-alert-triangle"></i>Senha em texto claro · verificação frágil (Participants[0] + 8 dígitos) · IF "waliid exists" sem saídas</div>
+        </div>
+      </div>
+    </div>
   </div>
-</details>
+</div>
 
-<details>
-  <summary>Pontos críticos transversais (consolidado de todos os workflows)</summary>
-  <div class="props">
-    <strong>Segurança</strong>: senha do cliente em texto claro no WhatsApp e na descrição do grupo (Enviar acessos), credenciais hardcoded no Menu IA e Docupipe, planilhas com permissão pública de edição.<br><br>
-    <strong>Dívida técnica</strong>: 17 nodes Evolution API órfãos no Setup Dispairs, 9 no Enviar acessos, 6 no Menu IA. Vários números e IDs de grupo hardcoded sem fallback.<br><br>
-    <strong>Robustez</strong>: Setup Dispairs e Menu IA não têm Error Trigger. Bug confirmado: Onboarding Group = Mkt Group. <code>cardapio_da_loja</code> usado sem ser solicitado no Send Message SquadLead. Verificação de participação no grupo por últimos 8 dígitos pode dar falsos positivos.<br><br>
-    <strong>Operação</strong>: Menu IA ainda em trigger manual. Send Link Setup Ativacao é o único self-triggered. Os demais n8n dependem de Execute Workflow chamado por outro fluxo (geralmente um workflow do HubSpot que aciona via webhook).
+<div class="stage" id="stage-cardapio">
+  <div class="stage-header"><div class="stage-num">2-5</div><div class="stage-title">Username · Montagem · Validação · Configuração de Cardápio</div><i class="ti ti-chevron-right stage-chev"></i></div>
+  <div class="stage-body">
+    <div class="trigger-row"><i class="ti ti-bolt"></i><span>Múltiplos gatilhos: <code>username_no_dash</code> · Status = Montagem Cardápio · <code>novo cardápio = SIM</code> · <code>mensagem_disparada</code> · <code>gatilho_disparos_setup</code></span></div>
+    <div class="cols">
+      <div>
+        <div class="col-label"><i class="ti ti-building"></i>HubSpot</div>
+        <div class="item item-hub"><div class="item-name">[Operações] Username ticket → negócio</div><div class="item-desc">Propaga <code>username_no_dash</code> do ticket para o negócio associado.</div></div>
+        <div class="item item-hub"><div class="item-name">[Novo setup] Tarefa montador cardápio</div><div class="item-desc">Cria tarefa e atribui ao <code>Responsável pela montagem do cardápio</code>.</div></div>
+        <div class="item item-hub"><div class="item-name">[Novo Setup] Criar observações</div><div class="item-desc">Cria observações conforme etapa (Montagem / Ajustes / Configurações).</div></div>
+      </div>
+      <div>
+        <div class="col-label"><i class="ti ti-circle"></i>n8n</div>
+        <div class="item item-n8n">
+          <div class="item-name">Send Message SquadLead New Menu</div>
+          <div class="item-desc">Notifica João Lucas + Brittes com link do cardápio.</div>
+          <div class="item-risk risk-med"><i class="ti ti-alert-circle"></i><code>cardapio_da_loja</code> e <code>dealname</code> não solicitados no GET · números hardcoded</div>
+        </div>
+        <div class="item item-n8n">
+          <div class="item-name">Setup ↔ Docupipe</div>
+          <div class="item-desc">OCR + padronização do Excel via schema Pizzaria ou Geral.</div>
+          <div class="item-risk risk-high"><i class="ti ti-alert-triangle"></i>API Key Docupipe + token UAZAPI hardcoded · 6 nodes órfãos · webhooks sem auth</div>
+        </div>
+        <div class="item item-n8n">
+          <div class="item-name">Menu IA Mountage <span style="font-size:10px; padding:1px 5px; background:rgba(163,45,45,0.15); border-radius:3px;">MVP</span></div>
+          <div class="item-desc">OpenAI Assistant + Google Sheets + envio ao backend Takeat.</div>
+          <div class="item-risk risk-high"><i class="ti ti-alert-triangle"></i>Senha Takeat em texto claro · planilha "writer/anyone" · ramo múltiplos arquivos incompleto</div>
+        </div>
+        <div class="item item-n8n">
+          <div class="item-name">Setup Dispairs (ramos 1, 2, 4, 5)</div>
+          <div class="item-desc">Validação cardápio · Ajuste cardápio · Agendar configurações · Lembrete reunião (grupo + PV).</div>
+        </div>
+        <div class="item item-n8n">
+          <div class="item-name">Enviar mensagem cardápio pronto</div>
+          <div class="item-desc">Avisa cliente da validação (grupo se está dentro, inbox se não).</div>
+          <div class="item-risk risk-med"><i class="ti ti-alert-circle"></i>"Aviso no grupo" executado em ambos os ramos do IF</div>
+        </div>
+      </div>
+    </div>
   </div>
-</details>
+</div>
 
-<details>
-  <summary>Quem dispara quem? (visão de causalidade)</summary>
-  <div class="props">
-    <strong>HubSpot dispara n8n via</strong>:<br>
-    • Workflow HubSpot edita uma property do ticket/deal → webhook → Execute Workflow Trigger no n8n<br>
-    • Propriedade modificada: <code>gatilho_disparos_setup</code>, <code>Disparar Acessos</code>, <code>gatilho novo cardápio</code>, <code>mensagem_disparada</code><br><br>
-    <strong>n8n self-triggered</strong>:<br>
-    • Send Link Setup Ativacao — Schedule Trigger (a cada 2 min)<br><br>
-    <strong>n8n chama n8n (sub-workflows)</strong>:<br>
-    • Instance Selector — escolhe token UAZAPI correto<br>
-    • Horas Economizadas — registra ganho operacional<br>
-    • Métrica Erros Painel RPA — registra falhas<br><br>
-    <strong>Docupipe chama n8n via webhook</strong>:<br>
-    • <code>/documento_processado</code> — quando OCR termina<br>
-    • <code>/documento_standarizado</code> — quando padronização termina
+<div class="stage" id="stage-6">
+  <div class="stage-header"><div class="stage-num">6</div><div class="stage-title">Ativação · Treinamentos</div><i class="ti ti-chevron-right stage-chev"></i></div>
+  <div class="stage-body">
+    <div class="trigger-row"><i class="ti ti-bolt"></i><span>Deal em Setup ou Ativação · <code>disparo_treinamento</code> vazio · <code>waliid</code> preenchido</span></div>
+    <div class="cols">
+      <div>
+        <div class="col-label"><i class="ti ti-building"></i>HubSpot</div>
+        <div class="item item-hub" style="opacity:0.5"><div class="item-desc">Etapa polled pelo n8n — sem workflow HubSpot dedicado, apenas filtros de propriedade.</div></div>
+      </div>
+      <div>
+        <div class="col-label"><i class="ti ti-circle"></i>n8n</div>
+        <div class="item item-n8n">
+          <div class="item-name">Send Link Setup Ativacao</div>
+          <div class="item-desc">Schedule a cada 2 min. Busca deals, lista eventos do Google Calendar, humaniza via OpenAI e envia link das reuniões. Atualiza <code>disparo_treinamento = true</code>.</div>
+          <div class="item-risk risk-med"><i class="ti ti-alert-circle"></i>Token UAZAPI hardcoded · conexão duplicada Update Deal · limit=1 por execução</div>
+        </div>
+      </div>
+    </div>
   </div>
-</details>
+</div>
+
+<div class="stage" id="stage-7">
+  <div class="stage-header"><div class="stage-num">7</div><div class="stage-title">Conclusão do Ticket</div><i class="ti ti-chevron-right stage-chev"></i></div>
+  <div class="stage-body">
+    <div class="trigger-row"><i class="ti ti-bolt"></i><span><code>gatilho_disparos_setup</code> = "[i] Conclusão Ticket Time Interno"</span></div>
+    <div class="cols">
+      <div>
+        <div class="col-label"><i class="ti ti-building"></i>HubSpot</div>
+        <div class="item item-hub"><div class="item-name">[Novo setup] Conclusão tarefas por tipo</div><div class="item-desc">Fecha automaticamente as tarefas associadas quando o ticket atinge status de conclusão.</div></div>
+      </div>
+      <div>
+        <div class="col-label"><i class="ti ti-circle"></i>n8n</div>
+        <div class="item item-n8n">
+          <div class="item-name">Setup Dispairs (ramo 6)</div>
+          <div class="item-desc">Identifica equipe do owner via HubSpot Teams API → roteia para grupo da equipe (Comercial / Mkt / Onboarding / Suporte / Sucesso / Automação) → cria engagement e atualiza owner.</div>
+          <div class="item-risk risk-high"><i class="ti ti-alert-triangle"></i>Onboarding Group = Mkt Group (provável bug) · Switch1 sem default · cadeia Brittes→Segatto→Giovanni sequencial frágil</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider">Workflows paralelos</div>
+
+<div class="stage" id="stage-suporte">
+  <div class="stage-header"><div class="stage-num support"><i class="ti ti-tag" style="font-size:13px"></i></div><div class="stage-title">[Suporte] Definição de Categoria para SO</div><i class="ti ti-chevron-right stage-chev"></i></div>
+  <div class="stage-body">
+    <div class="trigger-row"><i class="ti ti-bolt"></i><span><strong>Dois gatilhos:</strong> (1) <code>Status</code> alterado para <code>Fechado (Suporte)</code> ou ID <code>240964230</code> · (2) <code>Record created</code> a qualquer momento</span></div>
+    <div class="cols">
+      <div>
+        <div class="col-label"><i class="ti ti-building"></i>HubSpot</div>
+        <div class="item item-support">
+          <div class="item-name">[Suporte] Definição de Categoria para SO</div>
+          <div class="item-desc">Ramificação por categoria → anexa o SO correspondente em <code>[Suporte] - Categoria</code>. Algumas categorias têm sub-filtro pelo contato (Emissão Fiscal vs Outros).</div>
+          <div class="cat-grid">
+            <div class="cat-pill"><strong>Acompanhamento</strong>SO específico</div>
+            <div class="cat-pill"><strong>Impressão</strong>SO específico</div>
+            <div class="cat-pill"><strong>Sugestão Melhoria</strong>SO específico</div>
+            <div class="cat-pill"><strong>Cardápio</strong>SO específico</div>
+            <div class="cat-pill"><strong>Estoque</strong>SO específico</div>
+            <div class="cat-pill"><strong>Cadastros</strong>SO - Cadastros</div>
+            <div class="cat-pill"><strong>Comandas</strong>SO - Mesa/Comanda</div>
+            <div class="cat-pill"><strong>Caixa</strong>SO específico</div>
+            <div class="cat-pill"><strong>Delivery</strong>SO específico</div>
+          </div>
+          <div class="item-risk risk-med"><i class="ti ti-alert-circle"></i>9+ categorias · sub-filtro depende de propriedade do contato (não do ticket) · ramo "Outros" como fallback</div>
+        </div>
+      </div>
+      <div>
+        <div class="col-label"><i class="ti ti-circle"></i>n8n</div>
+        <div class="item item-n8n" style="opacity:0.5"><div class="item-desc">Nenhuma automação n8n vinculada — fluxo 100% HubSpot.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider">Estrutura transversal</div>
+
+<div class="stage" id="stage-bus">
+  <div class="stage-header"><div class="stage-num bus"><i class="ti ti-bolt" style="font-size:13px"></i></div><div class="stage-title">Barramento de propriedades-chave</div><i class="ti ti-chevron-right stage-chev"></i></div>
+  <div class="stage-body">
+    <div class="trigger-row"><i class="ti ti-info-circle"></i><span>Cada propriedade do HubSpot dispara um ou mais workflows do n8n. Esta é a "API" implícita entre os sistemas.</span></div>
+    <div class="cols">
+      <div>
+        <div class="item item-n8n"><div class="item-name"><code>gatilho_disparos_setup</code></div><div class="item-desc">→ Setup Dispairs (roteador com 7 ramos: aviso novo cliente, validação cardápio, ajuste cardápio, sem cardápio, agendar config, lembrete reunião, conclusão).</div></div>
+        <div class="item item-n8n"><div class="item-name"><code>disparar_acessos</code></div><div class="item-desc">→ Enviar acessos grupo Whatsapp (quando = Sim).</div></div>
+        <div class="item item-n8n"><div class="item-name"><code>mensagem_disparada</code></div><div class="item-desc">→ Send Message SquadLead New Menu (quando = "Disparo Novo Cardápio Recebido").</div></div>
+      </div>
+      <div>
+        <div class="item item-n8n"><div class="item-name"><code>novo cardápio</code></div><div class="item-desc">→ Setup ↔ Docupipe (quando = SIM). Menu IA Mountage ainda manual.</div></div>
+        <div class="item item-n8n"><div class="item-name"><code>disparo_treinamento</code></div><div class="item-desc">→ Send Link Setup Ativacao (polling: busca onde está vazio).</div></div>
+        <div class="item item-n8n"><div class="item-name"><code>Status do ticket</code></div><div class="item-desc">→ Múltiplos workflows HubSpot por etapa (Cliente Recebido, Montagem, Validação, Configuração).</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="stage" id="stage-infra">
+  <div class="stage-header"><div class="stage-num infra"><i class="ti ti-network" style="font-size:13px"></i></div><div class="stage-title">Infra · sub-workflows compartilhados</div><i class="ti ti-chevron-right stage-chev"></i></div>
+  <div class="stage-body">
+    <div class="cols">
+      <div>
+        <div class="col-label"><i class="ti ti-database"></i>Infra</div>
+        <div class="item item-trigger"><div class="item-name">Supabase · tabela Instancias</div><div class="item-desc">Tokens UAZAPI por grupo: <code>Comunicacao_Cliente</code>, <code>Comunicação_Interna</code>, <code>Criar_Grupo</code>.</div></div>
+        <div class="item item-trigger"><div class="item-name">UAZAPI · automate-takeat.uazapi.com</div><div class="item-desc">Endpoint único para envio de mensagens e gestão de grupos WhatsApp. Indisponibilidade quebra todos os disparos.</div></div>
+        <div class="item item-trigger"><div class="item-name">HubSpot CRM + Files API</div><div class="item-desc">Fonte de verdade de tickets, deals, contatos, anexos e equipes.</div></div>
+      </div>
+      <div>
+        <div class="col-label"><i class="ti ti-arrow-loop-right"></i>Sub-workflows n8n</div>
+        <div class="item item-n8n"><div class="item-name">Instance Selector</div><div class="item-desc">Seleciona instância UAZAPI correta. Usado por Send Link Setup Ativacao.</div></div>
+        <div class="item item-n8n"><div class="item-name">Horas Economizadas</div><div class="item-desc">Registra ganho operacional de cada disparo no painel de RPA.</div></div>
+        <div class="item item-n8n"><div class="item-name">Métrica Erros Painel RPA</div><div class="item-desc">Registra falhas. Chamado por Error Triggers.</div><div class="item-risk risk-med"><i class="ti ti-alert-circle"></i>Apenas 2 dos 7 workflows conectados</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  Mapa mental gerado a partir da documentação dos workflows do HubSpot e n8n da Takeat.
+</div>
 
 </div>
+
+<script>
+(function() {
+  document.querySelectorAll('.stage-header').forEach(h => {
+    h.addEventListener('click', () => h.parentElement.classList.toggle('open'));
+  });
+
+  document.getElementById('expand-all').addEventListener('click', () => {
+    document.querySelectorAll('.stage').forEach(s => s.classList.add('open'));
+  });
+  document.getElementById('collapse-all').addEventListener('click', () => {
+    document.querySelectorAll('.stage').forEach(s => s.classList.remove('open'));
+  });
+
+  document.querySelectorAll('svg g[data-stage]').forEach(g => {
+    g.addEventListener('click', () => {
+      const id = g.getAttribute('data-stage');
+      const target = document.getElementById(id);
+      if (!target) return;
+      target.classList.add('open');
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      target.classList.remove('flash');
+      void target.offsetWidth;
+      target.classList.add('flash');
+    });
+  });
+})();
+</script>
+
 </body>
 </html>
